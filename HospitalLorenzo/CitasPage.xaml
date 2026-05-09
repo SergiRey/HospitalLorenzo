@@ -40,9 +40,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="local:Cita">
                     <StackPanel Padding="12" Spacing="8">
-                        <TextBlock Text="{x:Bind PacienteNombre}"
-                               FontSize="16"
-                               FontWeight="SemiBold"/>
+                        
                         <TextBlock Text="{x:Bind Motivo}"
                                Foreground="#7a8fa6"/>
                         <TextBlock Foreground="#001e3b">
@@ -56,36 +54,29 @@
             </ListView.ItemTemplate>
         </ListView>
         <StackPanel x:Name="PanelNuevaCita"
-        Grid.Row="2"
-        Background="White"
-        CornerRadius="8"
-        Padding="16"
-        Spacing="8"
-        Visibility="Collapsed"
-        HorizontalAlignment="Right"
-        Width="350">
+            Grid.Row="2"
+            Background="White"
+            CornerRadius="8"
+            Padding="16"
+            Spacing="8"
+            Visibility="Collapsed"
+            HorizontalAlignment="Right"
+            Width="350">
 
             <TextBlock Text="Nueva Cita"
            FontSize="18"
            FontWeight="Bold"
            Margin="0,0,0,8"/>
 
-            <TextBox x:Name="txtPacienteNombre"
-         Header="Nombre del Paciente"/>
+            <ComboBox x:Name="cbPacientes" 
+          DisplayMemberPath="Nombre" Header="Seleccione un paciente:" 
+          SelectedValuePath="Id" />
 
-            <TextBox x:Name="txtMotivo"
-         Header="Motivo"
-         Height="80"/>
+            <ComboBox x:Name="cbDoctores" 
+          DisplayMemberPath="Nombre" Header="Seleccione un médico:"
+          SelectedValuePath="Id" />
 
-            <Button Content="Guardar Cita"
-        HorizontalAlignment="Stretch"
-        Background="#001e3b"
-        Foreground="White"
-        Click="BtnGuardar_Click"/>
-
-            <Button Content="Cancelar"
-        HorizontalAlignment="Stretch"
-        Click="BtnCancelar_Click"/>
+            
 
             <CalendarDatePicker x:Name="dpFechaCita"
                             Header="Fecha de la cita"
@@ -94,6 +85,20 @@
             <TimePicker x:Name="tpHora"
                     Header="Hora de la cita"
                     ClockIdentifier="24HourClock"/>
+
+            <TextBox x:Name="txtMotivo"
+                 Header="Motivo"
+                 Height="80"/>
+
+            <Button Content="Guardar Cita"
+                HorizontalAlignment="Stretch"
+                Background="#001e3b"
+                Foreground="White"
+                Click="BtnGuardar_Click"/>
+
+             <Button Content="Cancelar"
+                HorizontalAlignment="Stretch"
+                Click="BtnCancelar_Click"/>
 
         </StackPanel>
     </Grid>

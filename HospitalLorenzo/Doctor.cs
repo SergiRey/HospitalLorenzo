@@ -14,10 +14,7 @@ namespace HospitalLorenzo
         public bool Activo { get; set; } = true;
     }
 
-    public class DoctoresData
-    {
-        public List<Doctor> Doctores { get; set; } = new();
-    }
+    
 
     public class Paciente
     {
@@ -38,6 +35,11 @@ namespace HospitalLorenzo
     public class PacientesData
     {
         public List<Paciente> Pacientes { get; set; } = new();
+    }
+
+    public class DoctoresData
+    {
+        public List<Doctor> Doctores { get; set; } = new();
     }
 
     public class Cita
