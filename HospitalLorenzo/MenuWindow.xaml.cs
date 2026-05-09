@@ -34,7 +34,6 @@ namespace HospitalLorenzo
             HoraText.Text = ahora.ToString("HH:mm");
         }
 
-
         private void BtnInicio_Click(object sender, RoutedEventArgs e)
         {
 

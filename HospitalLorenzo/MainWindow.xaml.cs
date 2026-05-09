@@ -13,8 +13,6 @@ namespace HospitalLorenzo
 {
     public sealed partial class MainWindow : Window
     {
-        private static readonly string UsersFilePath =
-            Path.Combine(AppContext.BaseDirectory, "usuarios.json");
 
         public MainWindow()
         {
@@ -156,6 +154,9 @@ namespace HospitalLorenzo
                 : new Microsoft.UI.Xaml.Media.SolidColorBrush(Microsoft.UI.Colors.Green);
         }
 
+        private static readonly string rutaBase = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\.."));
+        private static readonly string UsersFilePath = Path.Combine(rutaBase, "JSON", "usuarios.json");
+
         private static async Task<List<User>> LoadUsersAsync()
         {
             if (!File.Exists(UsersFilePath)) return new List<User>();
@@ -165,6 +166,12 @@ namespace HospitalLorenzo
 
         private static async Task SaveUsersAsync(List<User> users)
         {
+            string directorio = Path.GetDirectoryName(UsersFilePath);
+
+            if (!Directory.Exists(directorio))
+            {
+                Directory.CreateDirectory(directorio);
+            }
             var json = JsonSerializer.Serialize(users, new JsonSerializerOptions { WriteIndented = true });
             await File.WriteAllTextAsync(UsersFilePath, json);
         }
