@@ -154,8 +154,8 @@ namespace HospitalLorenzo
                 : new Microsoft.UI.Xaml.Media.SolidColorBrush(Microsoft.UI.Colors.Green);
         }
 
-        private static readonly string rutaBase = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\.."));
-        private static readonly string UsersFilePath = Path.Combine(rutaBase, "JSON", "usuarios.json");
+        private static readonly string UsersFilePath = Rutas.Usuarios;
+
 
         private static async Task<List<User>> LoadUsersAsync()
         {

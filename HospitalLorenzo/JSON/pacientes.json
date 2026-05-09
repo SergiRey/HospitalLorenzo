@@ -1,0 +1,18 @@
+{
+  "Pacientes": [
+    {
+      "Id": 1,
+      "Nombre": "alkdlaplda adadad",
+      "FechaNacimiento": "dadwad",
+      "Sexo": "Femenino",
+      "Telefono": "awdadawd",
+      "Correo": "awdaddawd",
+      "Direccion": "awdadawe",
+      "TipoSangre": "B-",
+      "Alergias": "awdawdaaw",
+      "Enfermedades": "dadawdada",
+      "FechaRegistro": "09/05/2026 15:05",
+      "Activo": true
+    }
+  ]
+}

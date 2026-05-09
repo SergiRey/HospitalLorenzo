@@ -1,7 +1,26 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+
 
 namespace HospitalLorenzo
 {
+
+    public static class Rutas
+    {
+        private static readonly string RutaBase = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\.."));
+        public static string Usuarios   => Path.Combine(RutaBase, "JSON", "usuarios.json");
+        public static string Doctores   => Path.Combine(RutaBase, "JSON", "doctores.json");
+        public static string Pacientes  => Path.Combine(RutaBase, "JSON", "pacientes.json");
+        public static string Citas      => Path.Combine(RutaBase, "JSON", "citas.json");
+
+        public static void AsegurarDirectorio(string rutaArchivo)
+        {
+            string directorio = Path.GetDirectoryName(rutaArchivo);
+            if (!Directory.Exists(directorio))
+                Directory.CreateDirectory(directorio);
+        }
+    }
+
     public class Doctor
     {
         public int Id { get; set; }

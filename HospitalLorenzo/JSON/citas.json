@@ -1,0 +1,16 @@
+{
+  "Citas": [
+    {
+      "Id": 1,
+      "PacienteId": 1,
+      "DoctorId": 1,
+      "PacienteNombre": "",
+      "DoctorNombre": "",
+      "Especialidad": "",
+      "Fecha": "2026-05-28",
+      "Hora": "18:15",
+      "Motivo": "ALGO",
+      "Estado": "Pendiente"
+    }
+  ]
+}

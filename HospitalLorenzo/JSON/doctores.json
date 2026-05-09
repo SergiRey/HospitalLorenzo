@@ -1,0 +1,14 @@
+{
+  "Doctores": [
+    {
+      "Id": 1,
+      "Nombre": "eepppee",
+      "Especialidad": "Dermatolog\u00EDa",
+      "Cedula": "eaad5a1dad",
+      "Telefono": "211da51d5a",
+      "Turno": "Vespertino",
+      "Disponible": true,
+      "Activo": true
+    }
+  ]
+}

@@ -11,8 +11,7 @@ namespace HospitalLorenzo
 {
     public sealed partial class CitasPage : Page
     {
-        private static readonly string DataPathCitas =
-            Path.Combine(AppContext.BaseDirectory, "citas.json");
+        private static readonly string DataPathCitas = Rutas.Citas;
 
         private List<Cita> _todasLasCitas = new();
 
@@ -38,7 +37,7 @@ namespace HospitalLorenzo
         }
         private async Task<List<Paciente>> LeerPacientesDesdeJson()
         {
-            string path = Path.Combine(AppContext.BaseDirectory, "pacientes.json");
+            string path = Rutas.Pacientes;
 
             if (!File.Exists(path))
                 return new List<Paciente>();
@@ -52,7 +51,7 @@ namespace HospitalLorenzo
 
         private async Task<List<Doctor>> LeerDoctoresDesdeJson()
         {
-            string path = Path.Combine(AppContext.BaseDirectory, "doctores.json");
+            string path = Rutas.Doctores;
 
             if (!File.Exists(path))
                 return new List<Doctor>();
@@ -84,6 +83,7 @@ namespace HospitalLorenzo
 
         private async Task GuardarCitasAsync(CitasData data)
         {
+            Rutas.AsegurarDirectorio(Rutas.Citas);
             string json = JsonSerializer.Serialize(data,
                 new JsonSerializerOptions { WriteIndented = true });
             await File.WriteAllTextAsync(DataPathCitas, json);

@@ -27,7 +27,8 @@ namespace HospitalLorenzo
     
     public sealed partial class DoctoresPage : Page
     {
-        private static readonly string DataPath = Path.Combine(AppContext.BaseDirectory, "doctores.json");
+
+        private static readonly string DataPath = Rutas.Doctores;  
         private List<Doctor> _listaDoctoresMemoria = new();
 
         public DoctoresPage()
