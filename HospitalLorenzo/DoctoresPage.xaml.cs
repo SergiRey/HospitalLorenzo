@@ -14,6 +14,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using System.Text.RegularExpressions;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -74,38 +75,104 @@ namespace HospitalLorenzo
             LimpiarFormularioDoctor();
         }
 
-        private async void BtnGuardarDoctor_Click(object sender, RoutedEventArgs e)
+        public static bool ValidarCedulaProfesional(string Cedula)
         {
-            try
+            return Regex.IsMatch(Cedula, @"^\d{8}$");
+        }
+
+        public static bool ValidarTelefono(string Telefono)
+        {
+            return Regex.IsMatch(Telefono, @"^\d{10}$");
+        }
+
+        private void txtCedula_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string cedula = txtCedula.Text;
+
+            if (ValidarCedulaProfesional(cedula))
             {
-                if (string.IsNullOrWhiteSpace(txtNombreDoc.Text)) { return; }
-
-                var data = await CargarDataAsync();
-
-                int nuevoId = data.Doctores.Count > 0 ? data.Doctores.Max(d => d.Id) + 1 : 1;
-
-                var nuevoDoc = new Doctor
-                {
-                    Id = nuevoId,
-                    Nombre = txtNombreDoc.Text,
-                    Especialidad = (cmbEspecialidad.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "General",
-                    Cedula = txtCedula.Text,
-                    Telefono = txtTelefono.Text ?? "",
-                    Turno = (cmbTurno.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "",
-                    Activo = true
-                };
-
-                data.Doctores.Add(nuevoDoc);
-                await GuardarDataAsync(data);
-
-                BtnCancelarRegistro_Click(this, new RoutedEventArgs());
-                CargarDirectorioMedico();
+                EstadoCedula.Text = "✓ Cédula válida";
+                EstadoCedula.Foreground =
+                    new SolidColorBrush(Microsoft.UI.Colors.Green);
             }
-            catch (Exception ex)
+            else
             {
-                MostrarMensaje($"Error: {ex.Message}", true);
+                EstadoCedula.Text = "✗ La cédula debe tener 8 dígitos";
+                EstadoCedula.Foreground =
+                    new SolidColorBrush(Microsoft.UI.Colors.Red);
             }
         }
+
+        private void txtTelefono_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string telefono = txtTelefono.Text;
+
+            if (ValidarTelefono(telefono))
+            {
+                EstadoTelefono.Text = "✓ Teléfono válido";
+                EstadoTelefono.Foreground =
+                    new SolidColorBrush(Microsoft.UI.Colors.Green);
+            }
+            else
+            {
+                EstadoTelefono.Text = "✗ El teléfono debe tener 10 dígitos";
+                EstadoTelefono.Foreground =
+                    new SolidColorBrush(Microsoft.UI.Colors.Red);
+            }
+        }
+
+        private async void BtnGuardarDoctor_Click(object sender, RoutedEventArgs e)
+        {
+            var nombre = txtNombreDoc.Text?.Trim();
+            var cedula = txtCedula.Text?.Trim();
+            var telefono = txtTelefono.Text?.Trim();
+
+            if (string.IsNullOrEmpty(nombre))
+            {
+                MostrarMensaje("Ingresa el nombre del doctor.", true);
+                return;
+            }
+
+            if (!ValidarCedulaProfesional(cedula))
+            {
+                MostrarMensaje("La cédula debe tener exactamente 8 dígitos.", true);
+                return;
+            }
+
+            if (!ValidarTelefono(telefono))
+            {
+                MostrarMensaje("El teléfono debe tener exactamente 10 dígitos.", true);
+                return;
+            }
+
+            var data = await CargarDataAsync();
+
+            int nuevoId = data.Doctores.Count > 0
+                ? data.Doctores.Max(d => d.Id) + 1
+                : 1;
+
+            var nuevoDoc = new Doctor
+            {
+                Id = nuevoId,
+                Nombre = nombre,
+                Especialidad = (cmbEspecialidad.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "General",
+                Cedula = cedula,
+                Telefono = telefono,
+                Turno = (cmbTurno.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "",
+                Activo = true
+            };
+
+            data.Doctores.Add(nuevoDoc);
+
+            await GuardarDataAsync(data);
+
+            MostrarMensaje("Doctor registrado correctamente.", false);
+
+            BtnCancelarRegistro_Click(this, new RoutedEventArgs());
+
+            CargarDirectorioMedico();
+        }
+
 
         private async void TxtBusquedaDoctor_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -131,9 +198,6 @@ namespace HospitalLorenzo
             }
         }
 
-        private void BtnEditarDoctor_Click(object sender, RoutedEventArgs e)
-        {
-        }
 
         private void BtnCerrarDetalle_Click(object sender, RoutedEventArgs e)
         {
@@ -141,8 +205,13 @@ namespace HospitalLorenzo
             ListaDoctores.SelectedItem = null;
         }
 
-        private void MostrarMensaje(string mensaje, bool isError)
+        private void MostrarMensaje(string mensaje, bool isError = true)
         {
+            txtEstado.Text = mensaje;
+
+            txtEstado.Foreground = isError
+                ? new SolidColorBrush(Microsoft.UI.Colors.Red)
+                : new SolidColorBrush(Microsoft.UI.Colors.Green);
         }
 
         private void LimpiarFormularioDoctor()

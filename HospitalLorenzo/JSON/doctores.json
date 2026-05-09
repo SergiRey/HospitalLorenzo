@@ -9,6 +9,16 @@
       "Turno": "Vespertino",
       "Disponible": true,
       "Activo": true
+    },
+    {
+      "Id": 2,
+      "Nombre": "Juan P\u00E9rez",
+      "Especialidad": "Dermatolog\u00EDa",
+      "Cedula": "12345678",
+      "Telefono": "1254346898",
+      "Turno": "Vespertino",
+      "Disponible": true,
+      "Activo": true
     }
   ]
 }
