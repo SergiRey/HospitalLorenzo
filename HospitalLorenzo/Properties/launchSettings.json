@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "HospitalLorenzo (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "HospitalLorenzo (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
