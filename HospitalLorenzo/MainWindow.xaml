@@ -53,7 +53,11 @@
                          Header="Usuario"
                          FontWeight="SemiLight"
                          PlaceholderText="Introduzca su Usuario"
-                         Foreground="#4879AB"/>
+                         Foreground="#4879AB"
+                         MaxLength="30"/>
+                <TextBlock x:Name="ErrorUsuario" Grid.Row="1" Grid.Column="0"
+                                           FontSize="11" Foreground="Red"
+                                           Visibility="Collapsed" Margin="0,2,0,6"/>
 
                 <PasswordBox x:Name="PasswordBox"
                              Header="Contraseña"

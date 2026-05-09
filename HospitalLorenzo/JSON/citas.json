@@ -11,6 +11,18 @@
       "Hora": "18:15",
       "Motivo": "ALGO",
       "Estado": "Pendiente"
+    },
+    {
+      "Id": 2,
+      "PacienteId": 4,
+      "DoctorId": 2,
+      "PacienteNombre": "",
+      "DoctorNombre": "",
+      "Especialidad": "",
+      "Fecha": "2026-05-26",
+      "Hora": "18:25",
+      "Motivo": "da",
+      "Estado": "Pendiente"
     }
   ]
 }

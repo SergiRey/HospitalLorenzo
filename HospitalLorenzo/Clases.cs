@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.UI.Xaml.Controls;
+using System.Collections.Generic;
 using System.IO;
+using Windows.Media.Capture.Core;
 
 
 namespace HospitalLorenzo

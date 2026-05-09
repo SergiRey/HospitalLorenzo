@@ -15,7 +15,6 @@
             <SolidColorBrush x:Key="ComboBoxHeaderForeground" Color="#001e3b"/>
         </Grid.Resources>
 
-
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -27,7 +26,6 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-
 
                 <Grid Grid.Row="0" Background="White" Padding="20,14">
                     <Grid.ColumnDefinitions>
@@ -47,12 +45,13 @@
 
                 <ScrollViewer Grid.Row="1" Padding="24">
                     <Grid>
+
                         <StackPanel x:Name="FormularioRegistro" Spacing="14" MaxWidth="680">
 
                             <TextBlock Text="Nuevo paciente" FontSize="16"
                                        FontWeight="SemiBold" Foreground="#001e3b"/>
 
-                            <Grid ColumnSpacing="12" RowSpacing="12">
+                            <Grid ColumnSpacing="12" RowSpacing="2">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
@@ -61,17 +60,66 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
+
                                 <TextBox x:Name="txtNombre" Header="Nombre"
-                                         Grid.Row="0" Grid.Column="0"/>
+                                         Grid.Row="0" Grid.Column="0"
+                                         MaxLength="40"
+                                         PlaceholderText="Solo nombres, máx. 40 caracteres"
+                                         TextChanged="txtNombre_TextChanged"/>
+                                <TextBlock x:Name="ErrorNombre" Grid.Row="1" Grid.Column="0"
+                                           FontSize="11" Foreground="Red"
+                                           Visibility="Collapsed" Margin="0,2,0,6"/>
+
                                 <TextBox x:Name="txtApellido" Header="Apellido"
-                                         Grid.Row="0" Grid.Column="1"/>
+                                         Grid.Row="0" Grid.Column="1"
+                                         MaxLength="40"
+                                         PlaceholderText="Solo apellidos, máx. 40 caracteres"
+                                         TextChanged="txtApellido_TextChanged"/>
+                                <TextBlock x:Name="ErrorApellido" Grid.Row="1" Grid.Column="1"
+                                           FontSize="11" Foreground="Red"
+                                           Visibility="Collapsed" Margin="0,2,0,6"/>
+
                                 <TextBox x:Name="txtDireccion" Header="Dirección"
-                                         Grid.Row="1" Grid.ColumnSpan="2"/>
-                                <TextBox x:Name="txtTelefono" Header="Teléfono"
-                                         Grid.Row="2" Grid.Column="0"/>
+                                         Grid.Row="2" Grid.ColumnSpan="2"
+                                         MaxLength="65"
+                                         PlaceholderText="Calle / Número Exterior / Código Postal"
+                                         TextChanged="txtDireccion_TextChanged"/>
+                                <TextBlock x:Name="ErrorDireccion" Grid.Row="3" Grid.ColumnSpan="2"
+                                           FontSize="11" Foreground="Red"
+                                           Visibility="Collapsed" Margin="0,2,0,6"/>
+
+                                <StackPanel Grid.Row="4" Grid.Column="0" Spacing="4">
+                                    <TextBlock Text="Teléfono" FontSize="12" Foreground="#001e3b"/>
+                                    <StackPanel Orientation="Horizontal" Spacing="4">
+                                        <Border Background="#e8edf2" CornerRadius="4" Padding="8,6">
+                                            <TextBlock Text="+52" VerticalAlignment="Center"
+                                                       Foreground="#001e3b" FontSize="14"/>
+                                        </Border>
+                                        <TextBox x:Name="txtTelefono"
+                                                 PlaceholderText="10 dígitos"
+                                                 MaxLength="10"
+                                                 HorizontalAlignment="Stretch"
+                                                 Width="180"
+                                                 TextChanged="txtTelefono_TextChanged"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <TextBlock x:Name="ErrorTelefono" Grid.Row="5" Grid.Column="0"
+                                           FontSize="11" Foreground="Red"
+                                           Visibility="Collapsed" Margin="0,2,0,6"/>
+
                                 <TextBox x:Name="txtCorreo" Header="Email"
-                                         Grid.Row="2" Grid.Column="1"/>
+                                         Grid.Row="4" Grid.Column="1"
+                                         PlaceholderText="correo@gmail.com"
+                                         TextChanged="txtCorreo_TextChanged"/>
+                                <TextBlock x:Name="ErrorCorreo" Grid.Row="5" Grid.Column="1"
+                                           FontSize="11" Foreground="Red"
+                                           Visibility="Collapsed" Margin="0,2,0,6"/>
                             </Grid>
 
                             <Grid ColumnSpacing="12">
@@ -79,25 +127,31 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBox x:Name="datePickerNac"
-                                         Header="Fecha de nacimiento"
-                                         PlaceholderText="dd/mm/aaaa"/>
+                                <CalendarDatePicker x:Name="datePickerNac"
+                                                    Header="Fecha de nacimiento"
+                                                    PlaceholderText="dd/mm/aaaa"/>
                                 <ComboBox x:Name="comboSexo" Header="Género"
-                                          HorizontalAlignment="Stretch" Grid.Column="1">
+                                          HorizontalAlignment="Stretch" Grid.Column="1"
+                                          SelectionChanged="comboSexo_SelectionChanged">
                                     <ComboBoxItem Content="Masculino"/>
                                     <ComboBoxItem Content="Femenino"/>
                                     <ComboBoxItem Content="Otro"/>
                                 </ComboBox>
                             </Grid>
+                            <TextBlock x:Name="ErrorSexo" FontSize="11" Foreground="Red"
+                                       Visibility="Collapsed"/>
 
                             <Grid ColumnSpacing="12">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBox x:Name="txtAlergias" Header="Alergias"/>
+                                <TextBox x:Name="txtAlergias" Header="Alergias"
+                                         PlaceholderText="Ej. Penicilina, polvo..."/>
                                 <ComboBox x:Name="comboSangre" Header="Tipo de Sangre"
-                                          HorizontalAlignment="Stretch" Grid.Column="1">
+                                          HorizontalAlignment="Stretch" Grid.Column="1"
+                                          PlaceholderText="Seleccione"
+                                          SelectionChanged="comboSangre_SelectionChanged">
                                     <ComboBoxItem Content="O+"/>
                                     <ComboBoxItem Content="O-"/>
                                     <ComboBoxItem Content="A+"/>
@@ -108,13 +162,14 @@
                                     <ComboBoxItem Content="AB-"/>
                                 </ComboBox>
                             </Grid>
+                            <TextBlock x:Name="ErrorSangre" FontSize="11" Foreground="Red"
+                                       Visibility="Collapsed"/>
 
                             <TextBox x:Name="txtCronicas" Header="Enfermedades Crónicas"
                                      AcceptsReturn="True" Height="90"
                                      PlaceholderText="Describa antecedentes"/>
 
-                            <StackPanel Orientation="Horizontal" Spacing="8"
-                                        HorizontalAlignment="Right">
+                            <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
                                 <TextBlock x:Name="txtMensaje" VerticalAlignment="Center"/>
                                 <Button Content="Guardar" Click="BtnGuardar_Click"
                                         Background="#001e3b" Foreground="White"
@@ -123,7 +178,6 @@
 
                         </StackPanel>
 
-
                         <Grid x:Name="SeccionExpedientes" Visibility="Collapsed">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -131,8 +185,7 @@
                             </Grid.ColumnDefinitions>
 
                             <StackPanel Grid.Column="0" Spacing="12" Margin="0,0,16,0">
-                                <TextBlock Text="Expedientes" FontSize="16"
-                                           FontWeight="SemiBold"/>
+                                <TextBlock Text="Expedientes" FontSize="16" FontWeight="SemiBold"/>
                                 <StackPanel Orientation="Horizontal" Spacing="8">
                                     <TextBox x:Name="txtBusquedaReporte"
                                              PlaceholderText="Buscar por ID..."
@@ -150,14 +203,12 @@
                                           CornerRadius="8" MaxHeight="500"/>
                             </StackPanel>
 
-
                             <StackPanel Grid.Column="1" x:Name="PanelDetalle"
                                         Visibility="Collapsed" Background="White"
                                         Padding="16" CornerRadius="8" Spacing="8">
-                                <TextBlock Text="Detalle" FontSize="14"
-                                           FontWeight="SemiBold"/>
+                                <TextBlock Text="Detalle" FontSize="14" FontWeight="SemiBold"/>
                                 <TextBlock x:Name="lblDetalleNombre" FontSize="16"
-                                           FontWeight="Bold"  TextWrapping="Wrap"/>
+                                           FontWeight="Bold" TextWrapping="Wrap"/>
                                 <TextBlock x:Name="lblDetalleTodo" FontSize="12"
                                            Foreground="#7a8fa6" TextWrapping="Wrap" LineHeight="20"/>
                                 <Button Content="Cerrar" Click="BtnCerrarDetalle_Click"

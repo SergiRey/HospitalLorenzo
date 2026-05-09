@@ -2,16 +2,16 @@
   "Pacientes": [
     {
       "Id": 1,
-      "Nombre": "alkdlaplda adadad",
-      "FechaNacimiento": "dadwad",
-      "Sexo": "Femenino",
-      "Telefono": "awdadawd",
-      "Correo": "awdaddawd",
-      "Direccion": "awdadawe",
+      "Nombre": "Sergio Alejandro Alcal\u00E1 Esquivel",
+      "FechaNacimiento": "26/05/2026",
+      "Sexo": "Masculino",
+      "Telefono": "\u002B528114870025",
+      "Correo": "sergio@gmail.com",
+      "Direccion": "Rafael #239 66486",
       "TipoSangre": "B-",
-      "Alergias": "awdawdaaw",
-      "Enfermedades": "dadawdada",
-      "FechaRegistro": "09/05/2026 15:05",
+      "Alergias": "",
+      "Enfermedades": "",
+      "FechaRegistro": "09/05/2026 17:46",
       "Activo": true
     }
   ]
