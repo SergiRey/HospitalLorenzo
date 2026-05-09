@@ -45,7 +45,7 @@
             </StackPanel>
 
             <StackPanel Grid.Column="1" Margin="0,25,0,25">
-                <Image Source="/Assets/logo1.png" Width="400" Height="85"/>
+                <Image Source="/Assets/Logo_white.png" Width="500" Height="115"/>
             </StackPanel>
 
             <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center">
@@ -72,6 +72,10 @@
                 <TextBlock x:Name="HoraText"
                    FontSize="20" FontWeight="Bold"
                    Foreground="White" HorizontalAlignment="Center"/>
+
+                <Button Name="fileExitMenuItem" Click="fileExitMenuItem_Click"/>
+
+
 
             </StackPanel>
         </Grid>

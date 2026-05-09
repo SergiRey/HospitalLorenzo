@@ -13,7 +13,10 @@ namespace HospitalLorenzo
             AppWindow.SetPresenter(AppWindowPresenterKind.FullScreen);
             IniciarReloj();
         }
-
+        private void fileExitMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
         private void IniciarReloj()
         {
             ActualizarFechaHora();

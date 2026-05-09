@@ -21,28 +21,18 @@
         
         <Grid Grid.Column="0">
             <Grid.Background>
-                <ImageBrush ImageSource="/Assets/hospital_log_bg.PNG" Stretch="UniformToFill" Opacity="0.75"/>
+                <ImageBrush ImageSource="/Assets/hospital_log_bg.PNG" Stretch="UniformToFill" Opacity="0.95"/>
             </Grid.Background>
             
             <StackPanel VerticalAlignment="Center"
                         HorizontalAlignment="Center"
                         Spacing="16">
 
-                <Image Source="/Assets/cruz.png"
-                       Width="280" Height="280"
+                <Image Source="/Assets/Logo_white.png"
+                       Width="500" Height="280"
                        HorizontalAlignment="Center"
                        Opacity="0.90"/>
 
-                <TextBlock Text="Hospital Lorenzo"
-                           FontSize="48"
-                           FontWeight="SemiBold"
-                           Foreground="#ffffff"
-                           HorizontalAlignment="Center"/>
-
-                <TextBlock Text="Sistema de gestión hospitalaria"
-                           FontSize="20"
-                           Foreground="#ffffff"
-                           HorizontalAlignment="Center"/>
             </StackPanel>
         </Grid>
 
@@ -100,7 +90,11 @@
                            FontWeight="ExtraLight"
                            TextWrapping="Wrap"
                            HorizontalAlignment="Center"/>
+                
+                <Button Name="fileExitMenuItem" Click="fileExitMenuItem_Click"/>
+
             </StackPanel>
+            
         </Grid>
     </Grid>
 </Window>

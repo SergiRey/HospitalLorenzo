@@ -21,6 +21,10 @@ namespace HospitalLorenzo
             this.InitializeComponent();
             AppWindow.SetPresenter(AppWindowPresenterKind.FullScreen);
         }
+        private void fileExitMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
 
         public record User(string Username, string Password);
 
