@@ -6,6 +6,9 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
 
 namespace HospitalLorenzo
 {
@@ -139,6 +142,154 @@ namespace HospitalLorenzo
 
             ListaCitas.ItemsSource = null;
             ListaCitas.ItemsSource = _todasLasCitas;
+        }
+        private async void BtnPdfCita_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var btn = sender as Button;
+                int citaId = Convert.ToInt32(btn?.Tag);
+                var cita = _todasLasCitas.FirstOrDefault(c => c.Id == citaId);
+                if (cita == null) return;
+
+                // Leer paciente y doctor del JSON
+                var pacientes = await LeerPacientesDesdeJson();
+                var doctores = await LeerDoctoresDesdeJson();
+
+                var paciente = pacientes.FirstOrDefault(p => p.Id == cita.PacienteId);
+                var doctor = doctores.FirstOrDefault(d => d.Id == cita.DoctorId);
+
+                string nombrePaciente = paciente?.Nombre ?? "Sin nombre";
+                string nombreDoctor = doctor?.Nombre ?? "Sin nombre";
+                string especialidad = doctor?.Especialidad ?? cita.Especialidad;
+
+                QuestPDF.Settings.License = LicenseType.Community;
+
+                string ruta = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                    $"Cita_{nombrePaciente}_{cita.Fecha}.pdf");
+
+                QuestPDF.Fluent.Document.Create(container =>
+                {
+                    container.Page(page =>
+                    {
+                        page.Size(PageSizes.A4);
+                        page.Margin(2, Unit.Centimetre);
+                        page.DefaultTextStyle(x => x.FontSize(12));
+
+                        page.Content().Column(col =>
+                        {
+
+                            // Encabezado con logo
+                            var logoPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                                "Assets", "Logo_Black.png");
+
+                            if (File.Exists(logoPath))
+                            {
+                                col.Item().Width(200).Image(logoPath).FitWidth();
+                            }
+                            else
+                            {
+                                col.Item().Text("Clínica Lorenzo")
+                                    .FontSize(28).Bold().FontColor("#001e3b");
+                            }
+
+                            col.Item().AlignCenter().Text("Comprobante de Cita Médica")
+                                .FontSize(14).FontColor("#4879AB");
+
+                            col.Item().PaddingTop(8).AlignCenter()
+                                .Text("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+                                .FontColor("#4879AB");
+
+                            col.Item().PaddingTop(16).Text("INFORMACIÓN DEL PACIENTE")
+                                .FontSize(13).Bold().FontColor("#001e3b");
+
+                            col.Item().PaddingTop(4)
+                                .Text("──────────────────────────────────────────────────")
+                                .FontColor("#cccccc");
+
+                            col.Item().PaddingTop(8).Row(row =>
+                            {
+                                row.ConstantItem(150).Text("Nombre:").Bold();
+                                row.RelativeItem().Text(nombrePaciente);
+                            });
+
+                            col.Item().PaddingTop(6).Row(row =>
+                            {
+                                row.ConstantItem(150).Text("Tipo de sangre:").Bold();
+                                row.RelativeItem().Text(paciente?.TipoSangre ?? "-");
+                            });
+
+                            col.Item().PaddingTop(6).Row(row =>
+                            {
+                                row.ConstantItem(150).Text("Alergias:").Bold();
+                                row.RelativeItem().Text(paciente?.Alergias ?? "-");
+                            });
+
+                            col.Item().PaddingTop(16).Text("INFORMACIÓN DE LA CITA")
+                                .FontSize(13).Bold().FontColor("#001e3b");
+
+                            col.Item().PaddingTop(4)
+                                .Text("──────────────────────────────────────────────────")
+                                .FontColor("#cccccc");
+
+                            col.Item().PaddingTop(8).Row(row =>
+                            {
+                                row.ConstantItem(150).Text("Doctor:").Bold();
+                                row.RelativeItem().Text(nombreDoctor);
+                            });
+
+                            col.Item().PaddingTop(6).Row(row =>
+                            {
+                                row.ConstantItem(150).Text("Especialidad:").Bold();
+                                row.RelativeItem().Text(especialidad);
+                            });
+
+                            col.Item().PaddingTop(6).Row(row =>
+                            {
+                                row.ConstantItem(150).Text("Fecha:").Bold();
+                                row.RelativeItem().Text(cita.Fecha);
+                            });
+
+                            col.Item().PaddingTop(6).Row(row =>
+                            {
+                                row.ConstantItem(150).Text("Hora:").Bold();
+                                row.RelativeItem().Text(cita.Hora);
+                            });
+
+                            col.Item().PaddingTop(6).Row(row =>
+                            {
+                                row.ConstantItem(150).Text("Motivo:").Bold();
+                                row.RelativeItem().Text(cita.Motivo);
+                            });
+
+                            col.Item().PaddingTop(6).Row(row =>
+                            {
+                                row.ConstantItem(150).Text("Estado:").Bold();
+                                row.RelativeItem().Text(cita.Estado);
+                            });
+
+                            col.Item().PaddingTop(24)
+                                .Text("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+                                .FontColor("#4879AB");
+
+                            col.Item().PaddingTop(8).AlignCenter()
+                                .Text("Este documento es un comprobante oficial de su cita médica.")
+                                .FontSize(10).FontColor("#888888").Italic();
+
+                            col.Item().AlignCenter()
+                                .Text($"Generado el {DateTime.Today:dd/MM/yyyy}")
+                                .FontSize(10).FontColor("#888888");
+                        });
+                    });
+                }).GeneratePdf(ruta);
+
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(ruta) { UseShellExecute = true });
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
+            }
         }
     }
 }

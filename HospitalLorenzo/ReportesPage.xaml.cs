@@ -84,8 +84,24 @@ namespace HospitalLorenzo
                         page.Margin(2, Unit.Centimetre);
                         page.DefaultTextStyle(x => x.FontSize(12));
 
-                        page.Header().Text("Reporte Semanal - Clínica Lorenzo")
-                            .SemiBold().FontSize(20).FontColor("#001e3b");
+                        page.Header().Column(header =>
+                        {
+                            var logoPath = System.IO.Path.Combine(
+                                AppDomain.CurrentDomain.BaseDirectory,
+                                "Assets", "Logo_Black.png");
+
+                            if (File.Exists(logoPath))
+                                header.Item().Width(200).Image(logoPath).FitWidth();
+                            else
+                                header.Item().Text("Clínica Lorenzo")
+                                    .FontSize(28).Bold().FontColor("#001e3b");
+
+                            header.Item().Text("Reporte Semanal")
+                                .FontSize(16).FontColor("#4879AB");
+
+                            header.Item().Text("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+                                .FontColor("#4879AB");
+                        });
 
                         page.Content().Column(col =>
                         {
