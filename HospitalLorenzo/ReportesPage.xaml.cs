@@ -84,7 +84,7 @@ namespace HospitalLorenzo
                         page.Margin(2, Unit.Centimetre);
                         page.DefaultTextStyle(x => x.FontSize(12));
 
-                        page.Header().Text("Reporte Semanal - Hospital Lorenzo")
+                        page.Header().Text("Reporte Semanal - Clínica Lorenzo")
                             .SemiBold().FontSize(20).FontColor("#001e3b");
 
                         page.Content().Column(col =>
