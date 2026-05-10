@@ -57,7 +57,7 @@ namespace HospitalLorenzo
 
         private void BtnReportes_Click(object sender, RoutedEventArgs e)
         {
-            //ContentFrame.Navigate(typeof(ReportesPage));
+            ContentFrame.Navigate(typeof(ReportesPage));
         }
     }
 }

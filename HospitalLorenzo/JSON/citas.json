@@ -23,6 +23,18 @@
       "Hora": "18:25",
       "Motivo": "da",
       "Estado": "Pendiente"
+    },
+    {
+      "Id": 3,
+      "PacienteId": 1,
+      "DoctorId": 1,
+      "PacienteNombre": "Prueba Paciente",
+      "DoctorNombre": "Prueba Doctor",
+      "Especialidad": "General",
+      "Fecha": "2026-05-09",
+      "Hora": "10:00",
+      "Motivo": "Prueba",
+      "Estado": "Pendiente"
     }
   ]
 }
