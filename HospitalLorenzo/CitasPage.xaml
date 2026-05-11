@@ -40,7 +40,13 @@
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="local:Cita">
                     <StackPanel Padding="12" Spacing="8">
-                        
+
+                        <TextBlock Foreground="#7a8fa6"
+                                   FontSize="12">
+                              <Run Text="ID: "/>
+                              <Run Text="{x:Bind Id}"/>
+                        </TextBlock>
+
                         <TextBlock Text="{x:Bind Motivo}"
                                Foreground="#7a8fa6"/>
                         <TextBlock Foreground="#001e3b">
@@ -48,6 +54,24 @@
                         <Run Text=" — "/>
                         <Run Text="{x:Bind Hora}"/>
                         </TextBlock>
+
+                        <TextBlock>
+                            <Run Text="Estatus: "/>
+                            <Run Text="{x:Bind Estatus}"/>
+                        </TextBlock>
+
+                        <ComboBox Tag="{x:Bind Id}"
+                                  HorizontalAlignment="Left"
+                                  SelectionChanged="CmbEstatus_SelectionChanged">
+                            <ComboBoxItem Content="Programada"/>
+                            <ComboBoxItem Content="Atendida"/>
+                            <ComboBoxItem Content="Cancelada"/>
+                        </ComboBox>
+                        <Button Content="Guardar cambios"
+                                Background="#001e3b"
+                                Foreground="White"
+                                Tag="{x:Bind Id}"
+                                Click="BtnGuardarEstatus_Click"/>
                     </StackPanel>
 
                 </DataTemplate>
