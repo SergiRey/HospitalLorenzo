@@ -67,21 +67,7 @@
                         Tag="{x:Bind Id}"
                         Click="BtnPdfCita_Click"
                         VerticalAlignment="Center"/>
-
-                        <ComboBox Tag="{x:Bind Id}"
-                                  HorizontalAlignment="Left"
-                                  SelectionChanged="CmbEstatus_SelectionChanged">
-                            <ComboBoxItem Content="Programada"/>
-                            <ComboBoxItem Content="Atendida"/>
-                            <ComboBoxItem Content="Cancelada"/>
-                        </ComboBox>
-                        <Button Content="Guardar cambios"
-                                Background="#001e3b"
-                                Foreground="White"
-                                Tag="{x:Bind Id}"
-                                Click="BtnGuardarEstatus_Click"/>
-                    </StackPanel>
-
+                    </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

@@ -13,48 +13,6 @@
       "Enfermedades": "",
       "FechaRegistro": "09/05/2026 17:46",
       "Activo": true
-    },
-    {
-      "Id": 2,
-      "Nombre": "Maria Jos\u00E9 Carranza",
-      "FechaNacimiento": "11/02/2003",
-      "Sexo": "Femenino",
-      "Telefono": "\u002B527653234567",
-      "Correo": "majoooo@gmail.com",
-      "Direccion": "Primavera #267 Colonia Las Flores",
-      "TipoSangre": "B\u002B",
-      "Alergias": "Penicilina",
-      "Enfermedades": "",
-      "FechaRegistro": "10/05/2026 15:25",
-      "Activo": true
-    },
-    {
-      "Id": 3,
-      "Nombre": "Mariana Alexandra Balderas Guevara",
-      "FechaNacimiento": "28/07/2007",
-      "Sexo": "Femenino",
-      "Telefono": "\u002B523456789876",
-      "Correo": "nana@icloud.com",
-      "Direccion": "Calle Flor #245 Colonia Primavera",
-      "TipoSangre": "A\u002B",
-      "Alergias": "Polvo",
-      "Enfermedades": "",
-      "FechaRegistro": "10/05/2026 19:24",
-      "Activo": true
-    },
-    {
-      "Id": 4,
-      "Nombre": "Sofia Mendoza Torres",
-      "FechaNacimiento": "12/03/1990",
-      "Sexo": "Femenino",
-      "Telefono": "\u002B528283738292",
-      "Correo": "sofi@gmail.com",
-      "Direccion": "Girasoles #303 Colonia Las Flores",
-      "TipoSangre": "AB-",
-      "Alergias": "Amoxicilina",
-      "Enfermedades": "Diabetes ",
-      "FechaRegistro": "10/05/2026 19:46",
-      "Activo": true
     }
   ]
 }

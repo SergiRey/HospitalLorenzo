@@ -15,7 +15,6 @@ namespace HospitalLorenzo
     public sealed partial class CitasPage : Page
     {
         private static readonly string DataPathCitas = Rutas.Citas;
-
         private List<Cita> _todasLasCitas = new();
 
         public CitasPage()
@@ -26,60 +25,47 @@ namespace HospitalLorenzo
 
         private async void CargarDatosIniciales()
         {
-            // Cargar Pacientes desde su JSON
             var pacientes = await LeerPacientesDesdeJson();
             cbPacientes.ItemsSource = pacientes;
 
-            // Cargar Doctores desde su JSON
             var doctores = await LeerDoctoresDesdeJson();
             cbDoctores.ItemsSource = doctores;
 
-            // Cargar Citas existentes
             _todasLasCitas = await LeerCitasDesdeJson();
             ListaCitas.ItemsSource = _todasLasCitas;
         }
+
         private async Task<List<Paciente>> LeerPacientesDesdeJson()
         {
             string path = Rutas.Pacientes;
-
-            if (!File.Exists(path))
-                return new List<Paciente>();
-
+            if (!File.Exists(path)) return new List<Paciente>();
             string json = await File.ReadAllTextAsync(path);
-
             var data = JsonSerializer.Deserialize<PacientesData>(json);
-
             return data?.Pacientes ?? new List<Paciente>();
         }
 
         private async Task<List<Doctor>> LeerDoctoresDesdeJson()
         {
             string path = Rutas.Doctores;
-
-            if (!File.Exists(path))
-                return new List<Doctor>();
-
+            if (!File.Exists(path)) return new List<Doctor>();
             string json = await File.ReadAllTextAsync(path);
-
             var data = JsonSerializer.Deserialize<DoctoresData>(json);
-
             return data?.Doctores ?? new List<Doctor>();
         }
 
         private async Task<List<Cita>> LeerCitasDesdeJson()
         {
-            // Reutilizamos tu lógica de CargarCitasAsync pero devolviendo la lista
             var data = await CargarCitasAsync();
             return data.Citas ?? new List<Cita>();
         }
+
         private async Task<CitasData> CargarCitasAsync()
         {
             try
             {
                 if (!File.Exists(DataPathCitas)) return new CitasData();
                 string json = await File.ReadAllTextAsync(DataPathCitas);
-                return JsonSerializer.Deserialize<CitasData>(json)
-                       ?? new CitasData();
+                return JsonSerializer.Deserialize<CitasData>(json) ?? new CitasData();
             }
             catch { return new CitasData(); }
         }
@@ -87,8 +73,7 @@ namespace HospitalLorenzo
         private async Task GuardarCitasAsync(CitasData data)
         {
             Rutas.AsegurarDirectorio(Rutas.Citas);
-            string json = JsonSerializer.Serialize(data,
-                new JsonSerializerOptions { WriteIndented = true });
+            string json = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
             await File.WriteAllTextAsync(DataPathCitas, json);
         }
 
@@ -102,32 +87,8 @@ namespace HospitalLorenzo
             PanelNuevaCita.Visibility = Visibility.Collapsed;
         }
 
-        private async void CmbEstatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (sender is ComboBox cmb && cmb.Tag is int id)
-            {
-                var cita = _todasLasCitas.FirstOrDefault(c => c.Id == id);
-                if (cita != null && cmb.SelectedItem is ComboBoxItem item)
-                {
-                    cita.Estatus = item.Content.ToString() ?? "Programada";
-                }
-            }
-
-
-        }
-
-        private async void BtnGuardarEstatus_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is Button btn && btn.Tag is int id)
-            {
-                var cita = _todasLasCitas.FirstOrDefault(c => c.Id == id);
-                if (cita != null)
-                    await GuardarCitasAsync(new CitasData { Citas = _todasLasCitas });
-            }
-        }
         private async void BtnGuardar_Click(object sender, RoutedEventArgs e)
         {
-            // Validación con el diálogo correcto para tu tipo de proyecto
             if (cbPacientes.SelectedValue == null || cbDoctores.SelectedValue == null)
             {
                 var dialog = new Windows.UI.Popups.MessageDialog("Selecciona paciente y doctor");
@@ -138,11 +99,8 @@ namespace HospitalLorenzo
             var nuevaCita = new Cita
             {
                 Id = _todasLasCitas.Count > 0 ? _todasLasCitas.Max(c => c.Id) + 1 : 1,
-
-                // Conversión de String a Int para evitar el error CS0029
                 PacienteId = Convert.ToInt32(cbPacientes.SelectedValue),
                 DoctorId = Convert.ToInt32(cbDoctores.SelectedValue),
-
                 Motivo = txtMotivo.Text,
                 Fecha = dpFechaCita.Date.HasValue
                         ? dpFechaCita.Date.Value.ToString("yyyy-MM-dd")
@@ -152,12 +110,11 @@ namespace HospitalLorenzo
             };
 
             // 1. Crea esta clase temporal o permanente
-
+           
 
             _todasLasCitas.Add(nuevaCita);
             await GuardarCitasAsync(new CitasData { Citas = _todasLasCitas });
 
-            // Limpieza de campos
             PanelNuevaCita.Visibility = Visibility.Collapsed;
             cbPacientes.SelectedIndex = -1;
             cbDoctores.SelectedIndex = -1;
@@ -166,6 +123,7 @@ namespace HospitalLorenzo
             ListaCitas.ItemsSource = null;
             ListaCitas.ItemsSource = _todasLasCitas;
         }
+
         private async void BtnPdfCita_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -175,7 +133,6 @@ namespace HospitalLorenzo
                 var cita = _todasLasCitas.FirstOrDefault(c => c.Id == citaId);
                 if (cita == null) return;
 
-                // Leer paciente y doctor del JSON
                 var pacientes = await LeerPacientesDesdeJson();
                 var doctores = await LeerDoctoresDesdeJson();
 
@@ -202,34 +159,16 @@ namespace HospitalLorenzo
 
                         page.Content().Column(col =>
                         {
-
-                            // Encabezado con logo
-                            var logoPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
-                                "Assets", "Logo_Black.png");
+                            var logoPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Logo_Black.png");
 
                             if (File.Exists(logoPath))
-                            {
                                 col.Item().Width(200).Image(logoPath).FitWidth();
-                            }
                             else
-                            {
-                                col.Item().Text("Clínica Lorenzo")
-                                    .FontSize(28).Bold().FontColor("#001e3b");
-                            }
+                                col.Item().Text("Clínica Lorenzo").FontSize(28).Bold().FontColor("#001e3b");
 
-                            col.Item().AlignCenter().Text("Comprobante de Cita Médica")
-                                .FontSize(14).FontColor("#4879AB");
+                            col.Item().AlignCenter().Text("Comprobante de Cita Médica").FontSize(14).FontColor("#4879AB");
 
-                            col.Item().PaddingTop(8).AlignCenter()
-                                .Text("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-                                .FontColor("#4879AB");
-
-                            col.Item().PaddingTop(16).Text("INFORMACIÓN DEL PACIENTE")
-                                .FontSize(13).Bold().FontColor("#001e3b");
-
-                            col.Item().PaddingTop(4)
-                                .Text("──────────────────────────────────────────────────")
-                                .FontColor("#cccccc");
+                            col.Item().PaddingTop(16).Text("INFORMACIÓN DEL PACIENTE").FontSize(13).Bold().FontColor("#001e3b");
 
                             col.Item().PaddingTop(8).Row(row =>
                             {
@@ -249,12 +188,7 @@ namespace HospitalLorenzo
                                 row.RelativeItem().Text(paciente?.Alergias ?? "-");
                             });
 
-                            col.Item().PaddingTop(16).Text("INFORMACIÓN DE LA CITA")
-                                .FontSize(13).Bold().FontColor("#001e3b");
-
-                            col.Item().PaddingTop(4)
-                                .Text("──────────────────────────────────────────────────")
-                                .FontColor("#cccccc");
+                            col.Item().PaddingTop(16).Text("INFORMACIÓN DE LA CITA").FontSize(13).Bold().FontColor("#001e3b");
 
                             col.Item().PaddingTop(8).Row(row =>
                             {
@@ -289,20 +223,8 @@ namespace HospitalLorenzo
                             col.Item().PaddingTop(6).Row(row =>
                             {
                                 row.ConstantItem(150).Text("Estado:").Bold();
-                                row.RelativeItem().Text(cita.Estatus);
+                                row.RelativeItem().Text(cita.Estado);
                             });
-
-                            col.Item().PaddingTop(24)
-                                .Text("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-                                .FontColor("#4879AB");
-
-                            col.Item().PaddingTop(8).AlignCenter()
-                                .Text("Este documento es un comprobante oficial de su cita médica.")
-                                .FontSize(10).FontColor("#888888").Italic();
-
-                            col.Item().AlignCenter()
-                                .Text($"Generado el {DateTime.Today:dd/MM/yyyy}")
-                                .FontSize(10).FontColor("#888888");
                         });
                     });
                 }).GeneratePdf(ruta);
