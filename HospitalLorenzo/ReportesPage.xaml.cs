@@ -111,8 +111,7 @@ namespace HospitalLorenzo
                             col.Item().PaddingTop(10).Row(row =>
                             {
                                 row.RelativeItem().Text($"Total citas: {citas.Count}").Bold();
-                                row.RelativeItem().Text($"Pacientes: {citas.Select(c => c.PacienteId).Distinct().Count()}").Bold();
-                                row.RelativeItem().Text($"Doctores: {citas.Select(c => c.DoctorId).Distinct().Count()}").Bold();
+                                row.RelativeItem().Text($"Total pacientes: {citas.Select(c => c.PacienteId).Distinct().Count()}").Bold();
                             });
 
                             col.Item().PaddingTop(20).Table(table =>
@@ -123,25 +122,25 @@ namespace HospitalLorenzo
                                     columns.RelativeColumn();   
                                     columns.RelativeColumn();  
                                     columns.RelativeColumn();  
-                                    columns.ConstantColumn(70); 
+                                    columns.ConstantColumn(100); 
                                 });
 
                                 table.Header(header =>
                                 {
-                                    header.Cell().Background("#001e3b").Padding(5).Text("Folio").FontColor("#ffffff").Bold();
-                                    header.Cell().Background("#001e3b").Padding(5).Text("ID Paciente").FontColor("#ffffff").Bold();
-                                    header.Cell().Background("#001e3b").Padding(5).Text("ID Doctor").FontColor("#ffffff").Bold();
-                                    header.Cell().Background("#001e3b").Padding(5).Text("Fecha y Hora").FontColor("#ffffff").Bold();
-                                    header.Cell().Background("#001e3b").Padding(5).Text("Estado").FontColor("#ffffff").Bold();
+                                    header.Cell().Background("#001e3b").Padding(5).Text("Folio Cita").FontColor("#ffffff").Bold().FontSize(12);
+                                    header.Cell().Background("#001e3b").Padding(5).Text("ID Paciente").FontColor("#ffffff").Bold().FontSize(12);
+                                    header.Cell().Background("#001e3b").Padding(5).Text("ID Doctor").FontColor("#ffffff").Bold().FontSize(12);
+                                    header.Cell().Background("#001e3b").Padding(5).Text("Fecha y Hora").FontColor("#ffffff").Bold().FontSize(12);
+                                    header.Cell().Background("#001e3b").Padding(5).Text("Estado").FontColor("#ffffff").Bold().FontSize(12);
                                 });
 
                                 foreach (var cita in citas)
                                 {
-                                    table.Cell().Padding(5).Text(cita.Id.ToString());
-                                    table.Cell().Padding(5).Text(cita.PacienteId);
-                                    table.Cell().Padding(5).Text(cita.DoctorId);
-                                    table.Cell().Padding(5).Text($"{cita.Fecha} {cita.Hora}");
-                                    table.Cell().Padding(5).Text(cita.Estatus);
+                                    table.Cell().Padding(4).Text(cita.Id.ToString());
+                                    table.Cell().Padding(4).Text(cita.PacienteId);
+                                    table.Cell().Padding(4).Text(cita.DoctorId);
+                                    table.Cell().Padding(4).Text($"{cita.Fecha} {cita.Hora}");
+                                    table.Cell().Padding(4).Text(cita.Estatus);
                                 }
                             });
                         });
