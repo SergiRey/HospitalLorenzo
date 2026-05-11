@@ -17,62 +17,44 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0"
-       Text="Gestión de Citas"
-       FontSize="24"
-       FontWeight="Bold"
-       Foreground="#001e3b"/>
+                   Text="Gestión de Citas"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   Foreground="#001e3b"/>
+
         <StackPanel Grid.Row="1"
-        Orientation="Horizontal"
-        Margin="0,16,0,16">
-
+                    Orientation="Horizontal"
+                    Margin="0,16,0,16">
             <Button Content="+ Nueva Cita"
-        Background="#001e3b"
-        Foreground="White"
-        Click="BtnNuevaCita_Click"/>
-
-
+                    Background="#001e3b"
+                    Foreground="White"
+                    Click="BtnNuevaCita_Click"/>
         </StackPanel>
 
         <ListView Grid.Row="2"
-          x:Name="ListaCitas"
-          Background="White"
-          CornerRadius="8">
+                  x:Name="ListaCitas"
+                  Background="White"
+                  CornerRadius="8">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="local:Cita">
-                    <Grid Padding="12">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0" Spacing="8">
-                            <TextBlock Text="{x:Bind PacienteNombre}"
-                               FontWeight="Bold"
-                               Foreground="#001e3b"/>
-                            <TextBlock Text="{x:Bind Motivo}"
                     <StackPanel Padding="12" Spacing="8">
 
-                        <TextBlock Foreground="#7a8fa6"
-                                   FontSize="12">
-                              <Run Text="ID: "/>
-                              <Run Text="{x:Bind Id}"/>
+                        <TextBlock Foreground="#7a8fa6" FontSize="12">
+                            <Run Text="ID: "/>
+                            <Run Text="{x:Bind Id}"/>
                         </TextBlock>
 
+                        <TextBlock Text="{x:Bind PacienteNombre}"
+                                   FontWeight="Bold"
+                                   Foreground="#001e3b"/>
+
                         <TextBlock Text="{x:Bind Motivo}"
-                               Foreground="#7a8fa6"/>
-                            <TextBlock Foreground="#001e3b">
-                        <Run Text="{x:Bind Fecha}"/>
-                        <Run Text=" — "/>
-                        <Run Text="{x:Bind Hora}"/>
-                            </TextBlock>
-                        </StackPanel>
-                        <Button Grid.Column="1"
-                        Content="PDF"
-                        Background="#001e3b"
-                        Foreground="White"
-                        Tag="{x:Bind Id}"
-                        Click="BtnPdfCita_Click"
-                        VerticalAlignment="Center"/>
-                    </Grid>
+                                   Foreground="#7a8fa6"/>
+
+                        <TextBlock Foreground="#001e3b">
+                            <Run Text="{x:Bind Fecha}"/>
+                            <Run Text=" — "/>
+                            <Run Text="{x:Bind Hora}"/>
                         </TextBlock>
 
                         <TextBlock>
@@ -87,62 +69,70 @@
                             <ComboBoxItem Content="Atendida"/>
                             <ComboBoxItem Content="Cancelada"/>
                         </ComboBox>
+
                         <Button Content="Guardar cambios"
                                 Background="#001e3b"
                                 Foreground="White"
                                 Tag="{x:Bind Id}"
                                 Click="BtnGuardarEstatus_Click"/>
-                    </StackPanel>
 
+                        <Button Content="PDF"
+                                Background="#001e3b"
+                                Foreground="White"
+                                Tag="{x:Bind Id}"
+                                Click="BtnPdfCita_Click"/>
+
+                    </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
         <StackPanel x:Name="PanelNuevaCita"
-            Grid.Row="2"
-            Background="White"
-            CornerRadius="8"
-            Padding="16"
-            Spacing="8"
-            Visibility="Collapsed"
-            HorizontalAlignment="Right"
-            Width="350">
+                    Grid.Row="2"
+                    Background="White"
+                    CornerRadius="8"
+                    Padding="16"
+                    Spacing="8"
+                    Visibility="Collapsed"
+                    HorizontalAlignment="Right"
+                    Width="350">
 
             <TextBlock Text="Nueva Cita"
-           FontSize="18"
-           FontWeight="Bold"
-           Margin="0,0,0,8"/>
+                       FontSize="18"
+                       FontWeight="Bold"
+                       Margin="0,0,0,8"/>
 
-            <ComboBox x:Name="cbPacientes" 
-          DisplayMemberPath="Nombre" Header="Seleccione un paciente:" 
-          SelectedValuePath="Id" />
+            <ComboBox x:Name="cbPacientes"
+                      DisplayMemberPath="Nombre"
+                      Header="Seleccione un paciente:"
+                      SelectedValuePath="Id"/>
 
-            <ComboBox x:Name="cbDoctores" 
-          DisplayMemberPath="Nombre" Header="Seleccione un médico:"
-          SelectedValuePath="Id" />
-
-            
+            <ComboBox x:Name="cbDoctores"
+                      DisplayMemberPath="Nombre"
+                      Header="Seleccione un médico:"
+                      SelectedValuePath="Id"/>
 
             <CalendarDatePicker x:Name="dpFechaCita"
-                            Header="Fecha de la cita"
-                            HorizontalAlignment="Stretch"/>
+                                Header="Fecha de la cita"
+                                HorizontalAlignment="Stretch"/>
 
             <TimePicker x:Name="tpHora"
-                    Header="Hora de la cita"
-                    ClockIdentifier="24HourClock"/>
+                        Header="Hora de la cita"
+                        ClockIdentifier="24HourClock"/>
 
             <TextBox x:Name="txtMotivo"
-                 Header="Motivo"
-                 Height="80"/>
+                     Header="Motivo"
+                     Height="80"/>
 
             <Button Content="Guardar Cita"
-                HorizontalAlignment="Stretch"
-                Background="#001e3b"
-                Foreground="White"
-                Click="BtnGuardar_Click"/>
+                    HorizontalAlignment="Stretch"
+                    Background="#001e3b"
+                    Foreground="White"
+                    Click="BtnGuardar_Click"/>
 
-             <Button Content="Cancelar"
-                HorizontalAlignment="Stretch"
-                Click="BtnCancelar_Click"/>
+            <Button Content="Cancelar"
+                    HorizontalAlignment="Stretch"
+                    Click="BtnCancelar_Click"/>
 
         </StackPanel>
     </Grid>

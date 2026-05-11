@@ -2,52 +2,16 @@
   "Citas": [
     {
       "Id": 1,
-      "PacienteId": 1,
-      "DoctorId": 1,
-      "PacienteNombre": "",
-      "DoctorNombre": "",
-      "Especialidad": "",
-      "Fecha": "2026-05-28",
-      "Hora": "18:15",
-      "Motivo": "ALGO",
-      "Estatus": "Programada"
-    },
-    {
-      "Id": 2,
-      "PacienteId": 4,
-      "DoctorId": 2,
-      "PacienteNombre": "",
-      "DoctorNombre": "",
-      "Especialidad": "",
-      "Fecha": "2026-05-26",
-      "Hora": "18:25",
-      "Motivo": "da",
-      "Estado": "Pendiente"
-    },
-    {
-      "Id": 3,
-      "PacienteId": 1,
-      "DoctorId": 1,
-      "PacienteNombre": "Prueba Paciente",
-      "DoctorNombre": "Prueba Doctor",
-      "Especialidad": "General",
-      "Fecha": "2026-05-09",
-      "Hora": "10:00",
-      "Motivo": "Prueba",
-      "Estado": "Pendiente"
-      "Estatus": "Programada"
-    },
-    {
-      "Id": 3,
       "PacienteId": 2,
-      "DoctorId": 2,
+      "DoctorId": 3,
       "PacienteNombre": "",
       "DoctorNombre": "",
       "Especialidad": "",
-      "Fecha": "2000-01-01",
-      "Hora": "17:00",
-      "Motivo": "cerebrp",
-      "Estatus": "Programada"
+      "Fecha": "2026-05-11",
+      "Hora": "03:00",
+      "Motivo": "",
+      "Estado": "Pendiente",
+      "Estatus": "Atendida"
     }
   ]
 }
