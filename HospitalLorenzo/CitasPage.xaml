@@ -34,11 +34,21 @@
         </StackPanel>
 
         <ListView Grid.Row="2"
-              x:Name="ListaCitas"
-              Background="White"
-              CornerRadius="8">
+          x:Name="ListaCitas"
+          Background="White"
+          CornerRadius="8">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="local:Cita">
+                    <Grid Padding="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Spacing="8">
+                            <TextBlock Text="{x:Bind PacienteNombre}"
+                               FontWeight="Bold"
+                               Foreground="#001e3b"/>
+                            <TextBlock Text="{x:Bind Motivo}"
                     <StackPanel Padding="12" Spacing="8">
 
                         <TextBlock Foreground="#7a8fa6"
@@ -49,10 +59,20 @@
 
                         <TextBlock Text="{x:Bind Motivo}"
                                Foreground="#7a8fa6"/>
-                        <TextBlock Foreground="#001e3b">
+                            <TextBlock Foreground="#001e3b">
                         <Run Text="{x:Bind Fecha}"/>
                         <Run Text=" — "/>
                         <Run Text="{x:Bind Hora}"/>
+                            </TextBlock>
+                        </StackPanel>
+                        <Button Grid.Column="1"
+                        Content="PDF"
+                        Background="#001e3b"
+                        Foreground="White"
+                        Tag="{x:Bind Id}"
+                        Click="BtnPdfCita_Click"
+                        VerticalAlignment="Center"/>
+                    </Grid>
                         </TextBlock>
 
                         <TextBlock>

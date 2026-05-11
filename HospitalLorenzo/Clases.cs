@@ -1,4 +1,5 @@
 ﻿using Microsoft.UI.Xaml.Controls;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Windows.Media.Capture.Core;
@@ -10,10 +11,12 @@ namespace HospitalLorenzo
     public static class Rutas
     {
         private static readonly string RutaBase = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\.."));
-        public static string Usuarios   => Path.Combine(RutaBase, "JSON", "usuarios.json");
-        public static string Doctores   => Path.Combine(RutaBase, "JSON", "doctores.json");
-        public static string Pacientes  => Path.Combine(RutaBase, "JSON", "pacientes.json");
-        public static string Citas      => Path.Combine(RutaBase, "JSON", "citas.json");
+        public static string Usuarios => Path.Combine(RutaBase, "JSON", "usuarios.json");
+        public static string Doctores => Path.Combine(RutaBase, "JSON", "doctores.json");
+        public static string Pacientes => Path.Combine(RutaBase, "JSON", "pacientes.json");
+        public static string Citas => Path.Combine(RutaBase, "JSON", "citas.json");
+
+        public static string Especialidades => Path.Combine(RutaBase,"JSON", "especialidades.json");
 
         public static void AsegurarDirectorio(string rutaArchivo)
         {
@@ -35,7 +38,7 @@ namespace HospitalLorenzo
         public bool Activo { get; set; } = true;
     }
 
-    
+
 
     public class Paciente
     {
@@ -79,5 +82,9 @@ namespace HospitalLorenzo
     public class CitasData
     {
         public List<Cita> Citas { get; set; } = new();
+    
+    
+
     }
+
 }

@@ -19,6 +19,66 @@
       "Turno": "Vespertino",
       "Disponible": true,
       "Activo": true
+    },
+    {
+      "Id": 3,
+      "Nombre": "Miranda Sofia Gutierrez",
+      "Especialidad": "Dermatolog\u00EDa",
+      "Cedula": "65432456",
+      "Telefono": "1234565432",
+      "Turno": "Vespertino",
+      "Disponible": true,
+      "Activo": true
+    },
+    {
+      "Id": 4,
+      "Nombre": "Carolina Villarreal",
+      "Especialidad": "Dermatolog\u00EDa",
+      "Cedula": "12345566",
+      "Telefono": "8765434567",
+      "Turno": "Vespertino",
+      "Disponible": true,
+      "Activo": true
+    },
+    {
+      "Id": 5,
+      "Nombre": "Gerardo Mendez Velez",
+      "Especialidad": "Dermatolog\u00EDa Cosm\u00E9tica",
+      "Cedula": "12345678",
+      "Telefono": "2345678903",
+      "Turno": "Vespertino",
+      "Disponible": true,
+      "Activo": true
+    },
+    {
+      "Id": 6,
+      "Nombre": "Regina Luciana Torres",
+      "Especialidad": "Anestesiolog\u00EDa",
+      "Cedula": "34276532",
+      "Telefono": "8125353748",
+      "Turno": "Vespertino",
+      "Disponible": true,
+      "Activo": true
+    },
+    {
+      "Id": 7,
+      "Nombre": "Emilio Vel\u00E1zquez Garza",
+      "Especialidad": "Ginecolog\u00EDa Est\u00E9tica",
+      "Cedula": "65422284",
+      "Telefono": "8172713732",
+      "Turno": "Vespertino",
+      "Disponible": true,
+      "Activo": true
+    },
+    {
+      "Id": 8,
+      "Nombre": "Abigail Guevara",
+      "Especialidad": "Cirug\u00EDa Est\u00E9tica",
+      "Cedula": "76543234",
+      "Telefono": "1234567890",
+      "Turno": "Matutino",
+      "Disponible": true,
+      "Activo": true
     }
   ]
 }

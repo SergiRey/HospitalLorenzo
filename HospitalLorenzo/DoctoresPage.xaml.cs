@@ -31,11 +31,14 @@ namespace HospitalLorenzo
 
         private static readonly string DataPath = Rutas.Doctores;  
         private List<Doctor> _listaDoctoresMemoria = new();
+        private List<string> _especialidades = new();
 
         public DoctoresPage()
         {
             this.InitializeComponent();
             CargarDirectorioMedico();
+
+            _ = CargarEspecialidadesAsync();
         }
 
         private static async Task<DoctoresData> CargarDataAsync()
@@ -55,6 +58,25 @@ namespace HospitalLorenzo
             await File.WriteAllTextAsync(DataPath, json);
         }
 
+        private async Task CargarEspecialidadesAsync()
+        {
+            try
+            {
+                if (!File.Exists(Rutas.Especialidades))
+                    return;
+
+                string json = await File.ReadAllTextAsync(Rutas.Especialidades);
+
+                _especialidades = JsonSerializer.Deserialize<List<string>>(json)
+                                  ?? new List<string>();
+
+                cmbEspecialidad.ItemsSource = _especialidades;
+            }
+            catch (Exception ex)
+            {
+                MostrarMensaje($"Error cargando especialidades: {ex.Message}");
+            }
+        }
         private async void CargarDirectorioMedico()
         {
             var data = await CargarDataAsync();
@@ -87,37 +109,84 @@ namespace HospitalLorenzo
 
         private void txtCedula_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string cedula = txtCedula.Text;
+            var texto = txtCedula.Text;
 
-            if (ValidarCedulaProfesional(cedula))
+            bool soloNumeros = string.IsNullOrWhiteSpace(texto) ||
+                               Regex.IsMatch(texto, @"^\d+$");
+
+            if (string.IsNullOrWhiteSpace(texto))
             {
-                EstadoCedula.Text = "✓ Cédula válida";
-                EstadoCedula.Foreground =
-                    new SolidColorBrush(Microsoft.UI.Colors.Green);
+                EstadoCedula.Text = "La cédula es obligatoria.";
+                EstadoCedula.Visibility = Visibility.Visible;
+            }
+            else if (!soloNumeros)
+            {
+                EstadoCedula.Text = "La cédula solo debe contener números.";
+                EstadoCedula.Visibility = Visibility.Visible;
+            }
+            else if (texto.Length != 8)
+            {
+                EstadoCedula.Text = "La cédula debe tener exactamente 8 dígitos.";
+                EstadoCedula.Visibility = Visibility.Visible;
             }
             else
             {
-                EstadoCedula.Text = "✗ La cédula debe tener 8 dígitos";
-                EstadoCedula.Foreground =
-                    new SolidColorBrush(Microsoft.UI.Colors.Red);
+                EstadoCedula.Visibility = Visibility.Collapsed;
             }
         }
 
         private void txtTelefono_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string telefono = txtTelefono.Text;
+            var texto = txtTelefono.Text;
 
-            if (ValidarTelefono(telefono))
+            bool soloNumeros = string.IsNullOrWhiteSpace(texto) ||
+                               Regex.IsMatch(texto, @"^\d+$");
+
+            if (string.IsNullOrWhiteSpace(texto))
             {
-                EstadoTelefono.Text = "✓ Teléfono válido";
-                EstadoTelefono.Foreground =
-                    new SolidColorBrush(Microsoft.UI.Colors.Green);
+                EstadoTelefono.Text = "El teléfono es obligatorio.";
+                EstadoTelefono.Visibility = Visibility.Visible;
+            }
+            else if (!soloNumeros)
+            {
+                EstadoTelefono.Text = "El teléfono solo debe contener números.";
+                EstadoTelefono.Visibility = Visibility.Visible;
+            }
+            else if (texto.Length != 10)
+            {
+                EstadoTelefono.Text = "El teléfono debe tener exactamente 10 dígitos.";
+                EstadoTelefono.Visibility = Visibility.Visible;
             }
             else
             {
-                EstadoTelefono.Text = "✗ El teléfono debe tener 10 dígitos";
-                EstadoTelefono.Foreground =
-                    new SolidColorBrush(Microsoft.UI.Colors.Red);
+                EstadoTelefono.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void txtNombre_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var texto = txtNombreDoc.Text;
+
+            bool soloLetras = string.IsNullOrWhiteSpace(texto) ||
+                              Regex.IsMatch(
+                                  texto.Replace(" ", ""),
+                                  @"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]+$");
+
+            if (string.IsNullOrWhiteSpace(texto))
+            {
+                ErrorNombreDoc.Text = "El nombre es obligatorio.";
+                ErrorNombreDoc.Visibility = Visibility.Visible;
+            }
+            else if (!soloLetras)
+            {
+                ErrorNombreDoc.Text =
+                    "Solo se permiten letras, sin números ni símbolos.";
+
+                ErrorNombreDoc.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ErrorNombreDoc.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -127,9 +196,9 @@ namespace HospitalLorenzo
             var cedula = txtCedula.Text?.Trim();
             var telefono = txtTelefono.Text?.Trim();
 
-            if (string.IsNullOrEmpty(nombre))
+            if (ErrorNombreDoc.Visibility == Visibility.Visible)
             {
-                MostrarMensaje("Ingresa el nombre del doctor.", true);
+                MostrarMensaje("El nombre es obligatorio.");
                 return;
             }
 
@@ -155,7 +224,7 @@ namespace HospitalLorenzo
             {
                 Id = nuevoId,
                 Nombre = nombre,
-                Especialidad = (cmbEspecialidad.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "General",
+                Especialidad = cmbEspecialidad.SelectedItem?.ToString() ?? "General",
                 Cedula = cedula,
                 Telefono = telefono,
                 Turno = (cmbTurno.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "",
@@ -218,7 +287,19 @@ namespace HospitalLorenzo
         {
             txtNombreDoc.Text = "";
             txtCedula.Text = "";
+            txtTelefono.Text = "";
+
             cmbEspecialidad.SelectedIndex = -1;
+            cmbTurno.SelectedIndex = -1;
+
+            EstadoCedula.Text = "";
+            EstadoTelefono.Text = "";
+
+            EstadoCedula.Visibility = Visibility.Collapsed;
+            EstadoTelefono.Visibility = Visibility.Collapsed;
+            ErrorNombreDoc.Visibility = Visibility.Collapsed;
+
+            txtEstado.Text = "";
         }
     }
 }
