@@ -48,6 +48,11 @@
                                    FontWeight="Bold"
                                    Foreground="#001e3b"/>
 
+                        <TextBlock Foreground="#4879AB">
+                            <Run Text="Dr. "/>
+                            <Run Text="{x:Bind DoctorNombre}"/>
+                        </TextBlock>
+
                         <TextBlock Text="{x:Bind Motivo}"
                                    Foreground="#7a8fa6"/>
 
@@ -58,11 +63,12 @@
                         </TextBlock>
 
                         <TextBlock>
-                            <Run Text="Estatus: "/>
+                            <Run Text="Estatus actual: "/>
                             <Run Text="{x:Bind Estatus}"/>
                         </TextBlock>
 
                         <ComboBox Tag="{x:Bind Id}"
+                                  SelectedValue="{x:Bind Estatus}"
                                   HorizontalAlignment="Left"
                                   SelectionChanged="CmbEstatus_SelectionChanged">
                             <ComboBoxItem Content="Programada"/>

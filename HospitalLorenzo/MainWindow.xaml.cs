@@ -137,12 +137,12 @@ namespace HospitalLorenzo
             if (cumple)
             {
                 bloque.Text = $"✓ {texto}";
-                bloque.Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 72, 121, 171)); // verde
+                bloque.Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 72, 121, 171)); 
             }
             else
             {
                 bloque.Text = $"✗ {texto}";
-                bloque.Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 239, 68, 68)); // rojo
+                bloque.Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 239, 68, 68)); 
             }
         }   
 

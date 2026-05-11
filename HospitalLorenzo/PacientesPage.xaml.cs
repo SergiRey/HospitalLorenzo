@@ -193,7 +193,6 @@ namespace HospitalLorenzo
 
         private async void BtnGuardar_Click(object sender, RoutedEventArgs e)
         {
-            // dispara todas para mostrar errores aunque no se haya tocado el campo
             txtNombre_TextChanged(null, null);
             txtApellido_TextChanged(null, null);
             txtDireccion_TextChanged(null, null);
@@ -221,7 +220,7 @@ namespace HospitalLorenzo
                                       : "No especificada",
                     Sexo = (comboSexo.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "No especificado",
                     TipoSangre = (comboSangre.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "No especificado",
-                    Telefono = $"+52{txtTelefono.Text}", // agrega el +52 al guardar
+                    Telefono = $"+52{txtTelefono.Text}", 
                     Correo = txtCorreo.Text,
                     Direccion = txtDireccion.Text ?? "",
                     Alergias = txtAlergias.Text ?? "",

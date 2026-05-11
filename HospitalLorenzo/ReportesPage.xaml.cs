@@ -128,8 +128,8 @@ namespace HospitalLorenzo
                                 table.Header(header =>
                                 {
                                     header.Cell().Background("#001e3b").Padding(5).Text("Folio Cita").FontColor("#ffffff").Bold().FontSize(12);
-                                    header.Cell().Background("#001e3b").Padding(5).Text("ID Paciente").FontColor("#ffffff").Bold().FontSize(12);
-                                    header.Cell().Background("#001e3b").Padding(5).Text("ID Doctor").FontColor("#ffffff").Bold().FontSize(12);
+                                    header.Cell().Background("#001e3b").Padding(5).Text("Paciente").FontColor("#ffffff").Bold().FontSize(12);
+                                    header.Cell().Background("#001e3b").Padding(5).Text("Doctor").FontColor("#ffffff").Bold().FontSize(12);
                                     header.Cell().Background("#001e3b").Padding(5).Text("Fecha y Hora").FontColor("#ffffff").Bold().FontSize(12);
                                     header.Cell().Background("#001e3b").Padding(5).Text("Estado").FontColor("#ffffff").Bold().FontSize(12);
                                 });
@@ -137,8 +137,8 @@ namespace HospitalLorenzo
                                 foreach (var cita in citas)
                                 {
                                     table.Cell().Padding(4).Text(cita.Id.ToString());
-                                    table.Cell().Padding(4).Text(cita.PacienteId);
-                                    table.Cell().Padding(4).Text(cita.DoctorId);
+                                    table.Cell().Padding(4).Text(cita.PacienteNombre);
+                                    table.Cell().Padding(4).Text(cita.DoctorNombre);
                                     table.Cell().Padding(4).Text($"{cita.Fecha} {cita.Hora}");
                                     table.Cell().Padding(4).Text(cita.Estatus);
                                 }

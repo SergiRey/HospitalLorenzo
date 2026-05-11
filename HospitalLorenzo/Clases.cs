@@ -73,7 +73,6 @@ namespace HospitalLorenzo
         public int DoctorId { get; set; }
         public string PacienteNombre { get; set; } = string.Empty;
         public string DoctorNombre { get; set; } = string.Empty;
-        public string Especialidad { get; set; } = string.Empty;
         public string Fecha { get; set; } = string.Empty;
         public string Hora { get; set; } = string.Empty;
         public string Motivo { get; set; } = string.Empty;

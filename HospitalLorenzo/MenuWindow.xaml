@@ -15,7 +15,6 @@
 
     <Grid>
         <Grid.Resources>
-            <!-- Estilo hover para botones del navbar -->
             <Style x:Key="NavButtonStyle" TargetType="Button">
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="BorderThickness" Value="0"/>
@@ -58,7 +57,6 @@
                 </Setter>
             </Style>
 
-            <!-- Estilo hover para tarjetas de galería -->
             <Style x:Key="GalleryCardStyle" TargetType="Border">
                 <Setter Property="Background" Value="#0a2e4a"/>
                 <Setter Property="CornerRadius" Value="10"/>
@@ -71,7 +69,6 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- FILA 0: fecha, hora, título -->
         <Grid Grid.Row="0" Background="#02306d">
             <FontIcon Glyph="&#xE787;" Foreground="White" FontSize="20"
                       HorizontalAlignment="Left" VerticalAlignment="Center" Margin="150,20,0,0"/>
@@ -92,7 +89,6 @@
             </StackPanel>
         </Grid>
 
-        <!-- FILA 1: navbar con botones -->
         <Grid Grid.Row="1" Background="#02306d">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -125,16 +121,12 @@
             </StackPanel>
         </Grid>
 
-        <!-- FILA 2: scroll con frame y galería -->
         <ScrollViewer Grid.Row="2"
                       VerticalScrollBarVisibility="Auto"
                       HorizontalScrollBarVisibility="Disabled">
             <StackPanel>
 
                 <Frame x:Name="ContentFrame" MinHeight="600"/>
-
-                <!-- GALERÍA 3 CIRUGÍAS -->
-                <!-- GALERÍA 3x2 CIRUGÍAS -->
                 <Grid Padding="20" Background="#02306d" RowSpacing="16" ColumnSpacing="16">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -146,9 +138,6 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <!-- FILA 1 -->
-
-                    <!-- Tarjeta 1 -->
                     <Border Grid.Row="0" Grid.Column="0" CornerRadius="12" Background="#FFFFFF">
                         <Border.Shadow>
                             <ThemeShadow/>
@@ -168,7 +157,6 @@
                         </StackPanel>
                     </Border>
 
-                    <!-- Tarjeta 2 -->
                     <Border Grid.Row="0" Grid.Column="1" CornerRadius="12" Background="#FFFFFF">
                         <Border.Shadow>
                             <ThemeShadow/>
@@ -188,7 +176,6 @@
                         </StackPanel>
                     </Border>
 
-                    <!-- Tarjeta 3 -->
                     <Border Grid.Row="0" Grid.Column="2" CornerRadius="12" Background="#FFFFFF">
                         <Border.Shadow>
                             <ThemeShadow/>
@@ -208,9 +195,6 @@
                         </StackPanel>
                     </Border>
 
-                    <!-- FILA 2 -->
-
-                    <!-- Tarjeta 4 -->
                     <Border Grid.Row="1" Grid.Column="0" CornerRadius="12" Background="#FFFFFF">
                         <Border.Shadow>
                             <ThemeShadow/>
@@ -230,7 +214,6 @@
                         </StackPanel>
                     </Border>
 
-                    <!-- Tarjeta 5 -->
                     <Border Grid.Row="1" Grid.Column="1" CornerRadius="12" Background="#FFFFFF">
                         <Border.Shadow>
                             <ThemeShadow/>
@@ -250,7 +233,6 @@
                         </StackPanel>
                     </Border>
 
-                    <!-- Tarjeta 6 -->
                     <Border Grid.Row="1" Grid.Column="2" CornerRadius="12" Background="#FFFFFF">
                         <Border.Shadow>
                             <ThemeShadow/>

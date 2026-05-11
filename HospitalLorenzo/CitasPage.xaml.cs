@@ -87,13 +87,18 @@ namespace HospitalLorenzo
             PanelNuevaCita.Visibility = Visibility.Collapsed;
         }
 
+        
         private void CmbEstatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (sender is ComboBox cmb && cmb.Tag is int id)
             {
                 var cita = _todasLasCitas.FirstOrDefault(c => c.Id == id);
                 if (cita != null && cmb.SelectedItem is ComboBoxItem item)
-                    cita.Estatus = item.Content.ToString() ?? "Programada";
+                {
+                    string nuevoEstatus = item.Content.ToString() ?? "Programada";
+                    cita.Estatus = nuevoEstatus;
+                    cita.Estado = nuevoEstatus; 
+                }
             }
         }
 
@@ -103,34 +108,72 @@ namespace HospitalLorenzo
             {
                 var cita = _todasLasCitas.FirstOrDefault(c => c.Id == id);
                 if (cita != null)
+                {
                     await GuardarCitasAsync(new CitasData { Citas = _todasLasCitas });
+
+                    ListaCitas.ItemsSource = null;
+                    ListaCitas.ItemsSource = _todasLasCitas;
+                }
             }
         }
 
         private async void BtnGuardar_Click(object sender, RoutedEventArgs e)
         {
-            if (cbPacientes.SelectedValue == null || cbDoctores.SelectedValue == null)
+
+            var errores = new List<string>();
+
+            if (cbPacientes.SelectedItem == null)
+                errores.Add("Debes seleccionar un paciente.");
+
+            if (cbDoctores.SelectedItem == null)
+                errores.Add("Debes seleccionar un médico.");
+
+            if (!dpFechaCita.Date.HasValue)
+                errores.Add("Debes elegir una fecha para la cita.");
+            else if (dpFechaCita.Date.Value.Date < DateTime.Today)
+                errores.Add("La fecha no puede ser anterior a hoy.");
+
+            if (string.IsNullOrWhiteSpace(txtMotivo.Text))
+                errores.Add("El motivo de la cita es obligatorio.");
+
+            if (errores.Count > 0)
+            {
+                var dialog = new ContentDialog
+                {
+                    Title = "Datos incompletos",
+                    Content = string.Join("\n", errores),
+                    CloseButtonText = "Entendido",
+                    XamlRoot = this.XamlRoot
+                };
+                await dialog.ShowAsync();
+                return;
+            }
+
+            if (cbPacientes.SelectedItem == null || cbDoctores.SelectedItem == null)
             {
                 var dialog = new Windows.UI.Popups.MessageDialog("Selecciona paciente y doctor");
                 await dialog.ShowAsync();
                 return;
             }
 
+            var pacienteSeleccionado = cbPacientes.SelectedItem as Paciente;
+            var doctorSeleccionado = cbDoctores.SelectedItem as Doctor;
+
             var nuevaCita = new Cita
             {
                 Id = _todasLasCitas.Count > 0 ? _todasLasCitas.Max(c => c.Id) + 1 : 1,
-                PacienteId = Convert.ToInt32(cbPacientes.SelectedValue),
-                DoctorId = Convert.ToInt32(cbDoctores.SelectedValue),
+                PacienteId = pacienteSeleccionado?.Id ?? 0,
+                DoctorId = doctorSeleccionado?.Id ?? 0,
+                PacienteNombre = pacienteSeleccionado?.Nombre ?? "Sin nombre",
+                DoctorNombre = doctorSeleccionado?.Nombre ?? "Sin nombre",
                 Motivo = txtMotivo.Text,
                 Fecha = dpFechaCita.Date.HasValue
-                        ? dpFechaCita.Date.Value.ToString("yyyy-MM-dd")
-                        : DateTime.Today.ToString("yyyy-MM-dd"),
+                                 ? dpFechaCita.Date.Value.ToString("yyyy-MM-dd")
+                                 : DateTime.Today.ToString("yyyy-MM-dd"),
                 Hora = tpHora.Time.Hours.ToString("00") + ":" + tpHora.Time.Minutes.ToString("00"),
+                Estatus = "Programada",
                 Estado = "Programada"
             };
-
-            // 1. Crea esta clase temporal o permanente
-           
 
             _todasLasCitas.Add(nuevaCita);
             await GuardarCitasAsync(new CitasData { Citas = _todasLasCitas });
@@ -159,9 +202,10 @@ namespace HospitalLorenzo
                 var paciente = pacientes.FirstOrDefault(p => p.Id == cita.PacienteId);
                 var doctor = doctores.FirstOrDefault(d => d.Id == cita.DoctorId);
 
-                string nombrePaciente = paciente?.Nombre ?? "Sin nombre";
-                string nombreDoctor = doctor?.Nombre ?? "Sin nombre";
-                string especialidad = doctor?.Especialidad ?? cita.Especialidad;
+                string nombrePaciente = paciente?.Nombre ?? cita.PacienteNombre ?? "Sin nombre";
+                string nombreDoctor = doctor?.Nombre ?? cita.DoctorNombre ?? "Sin nombre";
+                string especialidad = doctor?.Especialidad ?? "-";
+                string cedulaDoctor = doctor?.Cedula ?? "-";
 
                 QuestPDF.Settings.License = LicenseType.Community;
 
@@ -180,71 +224,62 @@ namespace HospitalLorenzo
                         page.Content().Column(col =>
                         {
                             var logoPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Logo_Black.png");
-
                             if (File.Exists(logoPath))
                                 col.Item().Width(200).Image(logoPath).FitWidth();
                             else
                                 col.Item().Text("Clínica Lorenzo").FontSize(28).Bold().FontColor("#001e3b");
 
-                            col.Item().AlignCenter().Text("Comprobante de Cita Médica").FontSize(14).FontColor("#4879AB");
+                            col.Item().AlignCenter().Text("Comprobante de Cita Médica")
+                                .FontSize(14).FontColor("#4879AB");
 
-                            col.Item().PaddingTop(16).Text("INFORMACIÓN DEL PACIENTE").FontSize(13).Bold().FontColor("#001e3b");
+                            col.Item().PaddingTop(4).AlignCenter()
+                                .Text($"Folio: {cita.Id}")
+                                .FontSize(11).FontColor("#7a8fa6");
 
-                            col.Item().PaddingTop(8).Row(row =>
+                            col.Item().PaddingTop(12).PaddingBottom(4)
+                                .LineHorizontal(1).LineColor("#4879AB");
+
+                            col.Item().PaddingTop(12)
+                                .Text("INFORMACIÓN DEL PACIENTE")
+                                .FontSize(13).Bold().FontColor("#001e3b");
+
+                            void Fila(string etiqueta, string valor)
                             {
-                                row.ConstantItem(150).Text("Nombre:").Bold();
-                                row.RelativeItem().Text(nombrePaciente);
-                            });
+                                col.Item().PaddingTop(5).Row(row =>
+                                {
+                                    row.ConstantItem(160).Text(etiqueta).Bold();
+                                    row.RelativeItem().Text(string.IsNullOrWhiteSpace(valor) ? "-" : valor);
+                                });
+                            }
 
-                            col.Item().PaddingTop(6).Row(row =>
-                            {
-                                row.ConstantItem(150).Text("Tipo de sangre:").Bold();
-                                row.RelativeItem().Text(paciente?.TipoSangre ?? "-");
-                            });
+                            Fila("Nombre:", nombrePaciente);
+                            Fila("Fecha de nacimiento:", paciente?.FechaNacimiento ?? "-");
+                            Fila("Sexo:", paciente?.Sexo ?? "-");
+                            Fila("Teléfono:", paciente?.Telefono ?? "-");
+                            Fila("Correo:", paciente?.Correo ?? "-");
+                            Fila("Dirección:", paciente?.Direccion ?? "-");
+                            Fila("Tipo de sangre:", paciente?.TipoSangre ?? "-");
+                            Fila("Alergias:", paciente?.Alergias ?? "-");
+                            Fila("Enfermedades crónicas:", paciente?.Enfermedades ?? "-");
 
-                            col.Item().PaddingTop(6).Row(row =>
-                            {
-                                row.ConstantItem(150).Text("Alergias:").Bold();
-                                row.RelativeItem().Text(paciente?.Alergias ?? "-");
-                            });
+                            col.Item().PaddingTop(12).PaddingBottom(4)
+                                .LineHorizontal(1).LineColor("#4879AB");
 
-                            col.Item().PaddingTop(16).Text("INFORMACIÓN DE LA CITA").FontSize(13).Bold().FontColor("#001e3b");
+                            col.Item().PaddingTop(12)
+                                .Text("INFORMACIÓN DE LA CITA")
+                                .FontSize(13).Bold().FontColor("#001e3b");
 
-                            col.Item().PaddingTop(8).Row(row =>
-                            {
-                                row.ConstantItem(150).Text("Doctor:").Bold();
-                                row.RelativeItem().Text(nombreDoctor);
-                            });
+                            Fila("Doctor:", nombreDoctor);
+                            Fila("Especialidad:", especialidad);
+                            Fila("Cédula:", cedulaDoctor);
+                            Fila("Fecha:", cita.Fecha);
+                            Fila("Hora:", cita.Hora);
+                            Fila("Motivo:", cita.Motivo);
+                            Fila("Estado:", cita.Estado);
 
-                            col.Item().PaddingTop(6).Row(row =>
-                            {
-                                row.ConstantItem(150).Text("Especialidad:").Bold();
-                                row.RelativeItem().Text(especialidad);
-                            });
-
-                            col.Item().PaddingTop(6).Row(row =>
-                            {
-                                row.ConstantItem(150).Text("Fecha:").Bold();
-                                row.RelativeItem().Text(cita.Fecha);
-                            });
-
-                            col.Item().PaddingTop(6).Row(row =>
-                            {
-                                row.ConstantItem(150).Text("Hora:").Bold();
-                                row.RelativeItem().Text(cita.Hora);
-                            });
-
-                            col.Item().PaddingTop(6).Row(row =>
-                            {
-                                row.ConstantItem(150).Text("Motivo:").Bold();
-                                row.RelativeItem().Text(cita.Motivo);
-                            });
-
-                            col.Item().PaddingTop(6).Row(row =>
-                            {
-                                row.ConstantItem(150).Text("Estado:").Bold();
-                                row.RelativeItem().Text(cita.Estado);
-                            });
+                            col.Item().PaddingTop(24).AlignCenter()
+                                .Text($"Documento generado el {DateTime.Now:dd/MM/yyyy HH:mm}")
+                                .FontSize(9).FontColor("#aaaaaa");
                         });
                     });
                 }).GeneratePdf(ruta);

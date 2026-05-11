@@ -104,13 +104,13 @@
                                 </StackPanel>
 
                                 <StackPanel Grid.Column="1">
-                                    <TextBlock Text="ID Paciente" Foreground="#888" FontSize="11"/>
-                                    <TextBlock Text="{x:Bind PacienteId}" FontWeight="SemiBold" Foreground="#001e3b"/>
+                                    <TextBlock Text="Paciente" Foreground="#888" FontSize="11"/>
+                                    <TextBlock Text="{x:Bind PacienteNombre}" FontWeight="SemiBold" Foreground="#001e3b"/>
                                 </StackPanel>
 
                                 <StackPanel Grid.Column="2">
-                                    <TextBlock Text="ID Doctor" Foreground="#888" FontSize="11"/>
-                                    <TextBlock Text="{x:Bind DoctorId}" Foreground="#001e3b"/>
+                                    <TextBlock Text="Doctor" Foreground="#888" FontSize="11"/>
+                                    <TextBlock Text="{x:Bind DoctorNombre}" Foreground="#001e3b"/>
                                 </StackPanel>
 
                                 <StackPanel Grid.Column="3">
