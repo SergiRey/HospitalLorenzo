@@ -36,7 +36,7 @@
 
             <Border Background="#001e3b" CornerRadius="10" Padding="20" Width="180">
                 <StackPanel>
-                    <TextBlock Text="Citas pendientes esta semana"
+                    <TextBlock Text="Total Citas"
                                Foreground="#89c4ff" FontSize="13"/>
                     <TextBlock x:Name="TxtTotalCitas"
                                Text="0"
@@ -48,7 +48,7 @@
 
             <Border Background="#0a4a2e" CornerRadius="10" Padding="20" Width="180">
                 <StackPanel>
-                    <TextBlock Text="Pacientes esta semana"
+                    <TextBlock Text="Total Pacientes"
                                Foreground="#89ffb5" FontSize="13"/>
                     <TextBlock x:Name="TxtTotalPacientes"
                                Text="0"
@@ -60,7 +60,7 @@
 
             <Border Background="#4a2e0a" CornerRadius="10" Padding="20" Width="180">
                 <StackPanel>
-                    <TextBlock Text="Doctores esta semana"
+                    <TextBlock Text="Total Doctores"
                                Foreground="#ffd589" FontSize="13"/>
                     <TextBlock x:Name="TxtTotalDoctores"
                                Text="0"
@@ -91,28 +91,38 @@
                         <Border Background="White" CornerRadius="8" Padding="16" Margin="0,4">
                             <Grid>
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
+
                                 <StackPanel Grid.Column="0">
-                                    <TextBlock Text="Paciente" Foreground="#888" FontSize="11"/>
-                                    <TextBlock Text="{x:Bind PacienteNombre}" FontWeight="SemiBold" Foreground="#001e3b"/>
+                                    <TextBlock Text="ID" Foreground="#888" FontSize="11"/>
+                                    <TextBlock Text="{x:Bind Id}" FontWeight="Bold" Foreground="#001e3b"/>
                                 </StackPanel>
+
                                 <StackPanel Grid.Column="1">
-                                    <TextBlock Text="Doctor" Foreground="#888" FontSize="11"/>
-                                    <TextBlock Text="{x:Bind DoctorNombre}" Foreground="#001e3b"/>
+                                    <TextBlock Text="ID Paciente" Foreground="#888" FontSize="11"/>
+                                    <TextBlock Text="{x:Bind PacienteId}" FontWeight="SemiBold" Foreground="#001e3b"/>
                                 </StackPanel>
+
                                 <StackPanel Grid.Column="2">
+                                    <TextBlock Text="ID Doctor" Foreground="#888" FontSize="11"/>
+                                    <TextBlock Text="{x:Bind DoctorId}" Foreground="#001e3b"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="3">
                                     <TextBlock Text="Fecha y hora" Foreground="#888" FontSize="11"/>
                                     <TextBlock Foreground="#001e3b">
-                                        <Run Text="{x:Bind Fecha}"/>
-                                        <Run Text=" "/>
-                                        <Run Text="{x:Bind Hora}"/>
+                                <Run Text="{x:Bind Fecha}"/>
+                                <Run Text=" - "/>
+                                <Run Text="{x:Bind Hora}"/>
                                     </TextBlock>
                                 </StackPanel>
-                                <Border Grid.Column="3" CornerRadius="6" Padding="8,4" Background="#e8f4ff">
+
+                                <Border Grid.Column="4" CornerRadius="6" Padding="8,4" VerticalAlignment="Center" Background="#e8f4ff">
                                     <TextBlock Text="{x:Bind Estado}" Foreground="#4879AB" FontSize="12"/>
                                 </Border>
                             </Grid>

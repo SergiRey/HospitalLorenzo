@@ -32,9 +32,6 @@
         </StackPanel>
 
         <ListView Grid.Row="2"
-              x:Name="ListaCitas"
-              Background="White"
-              CornerRadius="8">
                   x:Name="ListaCitas"
                   Background="White"
                   CornerRadius="8">
@@ -52,12 +49,6 @@
                                    Foreground="#001e3b"/>
 
                         <TextBlock Text="{x:Bind Motivo}"
-                               Foreground="#7a8fa6"/>
-                        <TextBlock Foreground="#001e3b">
-                        <Run Text="{x:Bind Fecha}"/>
-                        <Run Text=" — "/>
-                        <Run Text="{x:Bind Hora}"/>
-                        </TextBlock>
                                    Foreground="#7a8fa6"/>
 
                         <TextBlock Foreground="#001e3b">
@@ -67,26 +58,17 @@
                         </TextBlock>
 
                         <TextBlock>
-                          <Run Text="Estatus: "/>
-                          <Run Text="{x:Bind Estado}"/>
+                            <Run Text="Estatus: "/>
+                            <Run Text="{x:Bind Estatus}"/>
                         </TextBlock>
 
                         <ComboBox Tag="{x:Bind Id}"
-                            HorizontalAlignment="Left"
-                            SelectionChanged="CmbEstatus_SelectionChanged">
+                                  HorizontalAlignment="Left"
+                                  SelectionChanged="CmbEstatus_SelectionChanged">
                             <ComboBoxItem Content="Programada"/>
                             <ComboBoxItem Content="Atendida"/>
                             <ComboBoxItem Content="Cancelada"/>
                         </ComboBox>
-
-                        <Button Grid.Column="1"
-                        Content="PDF"
-                        Background="#001e3b"
-                        Foreground="White"
-                        Tag="{x:Bind Id}"
-                        Click="BtnPdfCita_Click"
-                        VerticalAlignment="Center"/>
-                    </StackPanel>
 
                         <Button Content="Guardar cambios"
                                 Background="#001e3b"
@@ -102,7 +84,7 @@
 
                     </StackPanel>
                 </DataTemplate>
-           </ListView.ItemTemplate>
+            </ListView.ItemTemplate>
         </ListView>
 
         <StackPanel x:Name="PanelNuevaCita"
@@ -124,11 +106,6 @@
                       DisplayMemberPath="Nombre"
                       Header="Seleccione un paciente:"
                       SelectedValuePath="Id"/>
-
-            <ComboBox x:Name="cbDoctores" 
-          DisplayMemberPath="Nombre" Header="Seleccione un médico:"
-          SelectedValuePath="Id" />
-
 
             <ComboBox x:Name="cbDoctores"
                       DisplayMemberPath="Nombre"
@@ -153,9 +130,6 @@
                     Foreground="White"
                     Click="BtnGuardar_Click"/>
 
-            <Button Content="Cancelar"
-                HorizontalAlignment="Stretch"
-                Click="BtnCancelar_Click"/>
             <Button Content="Cancelar"
                     HorizontalAlignment="Stretch"
                     Click="BtnCancelar_Click"/>

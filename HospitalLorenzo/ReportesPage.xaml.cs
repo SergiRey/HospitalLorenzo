@@ -119,26 +119,29 @@ namespace HospitalLorenzo
                             {
                                 table.ColumnsDefinition(columns =>
                                 {
-                                    columns.RelativeColumn();
-                                    columns.RelativeColumn();
-                                    columns.RelativeColumn();
-                                    columns.ConstantColumn(80);
+                                    columns.ConstantColumn(40); 
+                                    columns.RelativeColumn();   
+                                    columns.RelativeColumn();  
+                                    columns.RelativeColumn();  
+                                    columns.ConstantColumn(70); 
                                 });
 
                                 table.Header(header =>
                                 {
-                                    header.Cell().Background("#001e3b").Padding(5).Text("Paciente").FontColor("#ffffff").Bold();
-                                    header.Cell().Background("#001e3b").Padding(5).Text("Doctor").FontColor("#ffffff").Bold();
+                                    header.Cell().Background("#001e3b").Padding(5).Text("Folio").FontColor("#ffffff").Bold();
+                                    header.Cell().Background("#001e3b").Padding(5).Text("ID Paciente").FontColor("#ffffff").Bold();
+                                    header.Cell().Background("#001e3b").Padding(5).Text("ID Doctor").FontColor("#ffffff").Bold();
                                     header.Cell().Background("#001e3b").Padding(5).Text("Fecha y Hora").FontColor("#ffffff").Bold();
                                     header.Cell().Background("#001e3b").Padding(5).Text("Estado").FontColor("#ffffff").Bold();
                                 });
 
                                 foreach (var cita in citas)
                                 {
-                                    table.Cell().Padding(5).Text(cita.PacienteNombre);
-                                    table.Cell().Padding(5).Text(cita.DoctorNombre);
+                                    table.Cell().Padding(5).Text(cita.Id.ToString());
+                                    table.Cell().Padding(5).Text(cita.PacienteId);
+                                    table.Cell().Padding(5).Text(cita.DoctorId);
                                     table.Cell().Padding(5).Text($"{cita.Fecha} {cita.Hora}");
-                                    table.Cell().Padding(5).Text(cita.Estado);
+                                    table.Cell().Padding(5).Text(cita.Estatus);
                                 }
                             });
                         });

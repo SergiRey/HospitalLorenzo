@@ -3,56 +3,67 @@
     {
       "Id": 1,
       "PacienteId": 2,
-      "DoctorId": 7,
+      "DoctorId": 3,
       "PacienteNombre": "",
       "DoctorNombre": "",
       "Especialidad": "",
       "Fecha": "2026-05-12",
-      "Hora": "16:00",
-      "Motivo": "Valoraci\u00F3n",
-      "Estatus": "Atendida"
+      "Hora": "10:30",
+      "Motivo": "Consulta",
+      "Estatus": "Programada",
+      "Estado": "Programada"
     },
     {
-      "Id": 5,
-      "PacienteId": 3,
+      "Id": 2,
+      "PacienteId": 1,
       "DoctorId": 8,
       "PacienteNombre": "",
       "DoctorNombre": "",
       "Especialidad": "",
-      "Fecha": "2026-05-18",
-      "Hora": "18:00",
-      "Motivo": "Valoraci\u00F3n ",
-      "Estatus": "Programada"
+      "Fecha": "2026-05-13",
+      "Hora": "16:30",
+      "Motivo": "Valoraci\u00F3n",
+      "Estatus": "Programada",
+      "Estado": "Programada"
     },
     {
-      "Id": 6,
+      "Id": 3,
       "PacienteId": 4,
+      "DoctorId": 6,
+      "PacienteNombre": "",
+      "DoctorNombre": "",
+      "Especialidad": "",
+      "Fecha": "2026-05-15",
+      "Hora": "14:30",
+      "Motivo": "",
+      "Estatus": "Programada",
+      "Estado": "Programada"
+    },
+    {
+      "Id": 4,
+      "PacienteId": 5,
+      "DoctorId": 2,
+      "PacienteNombre": "",
+      "DoctorNombre": "",
+      "Especialidad": "",
+      "Fecha": "2026-05-16",
+      "Hora": "18:00",
+      "Motivo": "",
+      "Estatus": "Programada",
+      "Estado": "Programada"
+    },
+    {
+      "Id": 5,
+      "PacienteId": 6,
       "DoctorId": 5,
       "PacienteNombre": "",
       "DoctorNombre": "",
       "Especialidad": "",
       "Fecha": "2026-05-15",
-      "Hora": "08:00",
-      "Motivo": "Valoraci\u00F3n",
-      "Estatus": "Programada"
-    },
-    {
-      "Id": 7,
-      "PacienteId": 4,
-      "DoctorId": 5,
-      "DoctorId": 3,
-      "PacienteNombre": "",
-      "DoctorNombre": "",
-      "Especialidad": "",
-      "Fecha": "2026-05-13",
-      "Hora": "10:45",
-      "Motivo": "Seguimiento",
-      "Estatus": "Programada"
-      "Fecha": "2026-05-11",
-      "Hora": "03:00",
+      "Hora": "14:00",
       "Motivo": "",
-      "Estado": "Pendiente",
-      "Estatus": "Atendida"
+      "Estatus": "Programada",
+      "Estado": "Programada"
     }
   ]
 }
