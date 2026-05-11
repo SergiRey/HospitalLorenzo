@@ -10,7 +10,7 @@
       "Fecha": "2026-05-28",
       "Hora": "18:15",
       "Motivo": "ALGO",
-      "Estado": "Pendiente"
+      "Estatus": "Programada"
     },
     {
       "Id": 2,
@@ -22,7 +22,7 @@
       "Fecha": "2026-05-26",
       "Hora": "18:25",
       "Motivo": "da",
-      "Estado": "Pendiente"
+      "Estatus": "Programada"
     },
     {
       "Id": 3,
@@ -34,7 +34,55 @@
       "Fecha": "2026-05-09",
       "Hora": "10:00",
       "Motivo": "Prueba",
-      "Estado": "Pendiente"
+      "Estatus": "Programada"
+    },
+    {
+      "Id": 4,
+      "PacienteId": 2,
+      "DoctorId": 7,
+      "PacienteNombre": "",
+      "DoctorNombre": "",
+      "Especialidad": "",
+      "Fecha": "2026-05-12",
+      "Hora": "16:00",
+      "Motivo": "Valoraci\u00F3n",
+      "Estatus": "Atendida"
+    },
+    {
+      "Id": 5,
+      "PacienteId": 3,
+      "DoctorId": 8,
+      "PacienteNombre": "",
+      "DoctorNombre": "",
+      "Especialidad": "",
+      "Fecha": "2026-05-18",
+      "Hora": "18:00",
+      "Motivo": "Valoraci\u00F3n ",
+      "Estatus": "Programada"
+    },
+    {
+      "Id": 6,
+      "PacienteId": 4,
+      "DoctorId": 5,
+      "PacienteNombre": "",
+      "DoctorNombre": "",
+      "Especialidad": "",
+      "Fecha": "2026-05-15",
+      "Hora": "08:00",
+      "Motivo": "Valoraci\u00F3n",
+      "Estatus": "Programada"
+    },
+    {
+      "Id": 7,
+      "PacienteId": 4,
+      "DoctorId": 5,
+      "PacienteNombre": "",
+      "DoctorNombre": "",
+      "Especialidad": "",
+      "Fecha": "2026-05-13",
+      "Hora": "10:45",
+      "Motivo": "Seguimiento",
+      "Estatus": "Programada"
     }
   ]
 }

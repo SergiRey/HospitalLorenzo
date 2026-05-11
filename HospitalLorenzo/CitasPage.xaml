@@ -34,28 +34,32 @@
         </StackPanel>
 
         <ListView Grid.Row="2"
-          x:Name="ListaCitas"
-          Background="White"
-          CornerRadius="8">
+              x:Name="ListaCitas"
+              Background="White"
+              CornerRadius="8">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="local:Cita">
-                    <Grid Padding="12">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0" Spacing="8">
-                            <TextBlock Text="{x:Bind PacienteNombre}"
-                               FontWeight="Bold"
-                               Foreground="#001e3b"/>
-                            <TextBlock Text="{x:Bind Motivo}"
+                    <StackPanel Padding="12" Spacing="8">
+
+                        <TextBlock Foreground="#7a8fa6"
+                                   FontSize="12">
+                              <Run Text="ID: "/>
+                              <Run Text="{x:Bind Id}"/>
+                        </TextBlock>
+
+                        <TextBlock Text="{x:Bind Motivo}"
                                Foreground="#7a8fa6"/>
-                            <TextBlock Foreground="#001e3b">
+                        <TextBlock Foreground="#001e3b">
                         <Run Text="{x:Bind Fecha}"/>
                         <Run Text=" — "/>
                         <Run Text="{x:Bind Hora}"/>
-                            </TextBlock>
-                        </StackPanel>
+                        </TextBlock>
+
+                        <TextBlock>
+                            <Run Text="Estatus: "/>
+                            <Run Text="{x:Bind Estatus}"/>
+                        </TextBlock>
+
                         <Button Grid.Column="1"
                         Content="PDF"
                         Background="#001e3b"
@@ -63,7 +67,21 @@
                         Tag="{x:Bind Id}"
                         Click="BtnPdfCita_Click"
                         VerticalAlignment="Center"/>
-                    </Grid>
+
+                        <ComboBox Tag="{x:Bind Id}"
+                                  HorizontalAlignment="Left"
+                                  SelectionChanged="CmbEstatus_SelectionChanged">
+                            <ComboBoxItem Content="Programada"/>
+                            <ComboBoxItem Content="Atendida"/>
+                            <ComboBoxItem Content="Cancelada"/>
+                        </ComboBox>
+                        <Button Content="Guardar cambios"
+                                Background="#001e3b"
+                                Foreground="White"
+                                Tag="{x:Bind Id}"
+                                Click="BtnGuardarEstatus_Click"/>
+                    </StackPanel>
+
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
@@ -90,7 +108,7 @@
           DisplayMemberPath="Nombre" Header="Seleccione un médico:"
           SelectedValuePath="Id" />
 
-            
+
 
             <CalendarDatePicker x:Name="dpFechaCita"
                             Header="Fecha de la cita"
@@ -110,7 +128,7 @@
                 Foreground="White"
                 Click="BtnGuardar_Click"/>
 
-             <Button Content="Cancelar"
+            <Button Content="Cancelar"
                 HorizontalAlignment="Stretch"
                 Click="BtnCancelar_Click"/>
 

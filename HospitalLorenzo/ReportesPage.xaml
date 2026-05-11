@@ -113,7 +113,7 @@
                                     </TextBlock>
                                 </StackPanel>
                                 <Border Grid.Column="3" CornerRadius="6" Padding="8,4" Background="#e8f4ff">
-                                    <TextBlock Text="{x:Bind Estado}" Foreground="#4879AB" FontSize="12"/>
+                                    <TextBlock Text="{x:Bind Estatus}" Foreground="#4879AB" FontSize="12"/>
                                 </Border>
                             </Grid>
                         </Border>

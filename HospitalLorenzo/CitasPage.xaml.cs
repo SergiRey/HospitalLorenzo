@@ -102,6 +102,29 @@ namespace HospitalLorenzo
             PanelNuevaCita.Visibility = Visibility.Collapsed;
         }
 
+        private async void CmbEstatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is ComboBox cmb && cmb.Tag is int id)
+            {
+                var cita = _todasLasCitas.FirstOrDefault(c => c.Id == id);
+                if (cita != null && cmb.SelectedItem is ComboBoxItem item)
+                {
+                    cita.Estatus = item.Content.ToString() ?? "Programada";
+                }
+            }
+
+
+        }
+
+        private async void BtnGuardarEstatus_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn && btn.Tag is int id)
+            {
+                var cita = _todasLasCitas.FirstOrDefault(c => c.Id == id);
+                if (cita != null)
+                    await GuardarCitasAsync(new CitasData { Citas = _todasLasCitas });
+            }
+        }
         private async void BtnGuardar_Click(object sender, RoutedEventArgs e)
         {
             // Validación con el diálogo correcto para tu tipo de proyecto
@@ -125,11 +148,11 @@ namespace HospitalLorenzo
                         ? dpFechaCita.Date.Value.ToString("yyyy-MM-dd")
                         : DateTime.Today.ToString("yyyy-MM-dd"),
                 Hora = tpHora.Time.Hours.ToString("00") + ":" + tpHora.Time.Minutes.ToString("00"),
-                Estado = "Pendiente"
+                Estatus = "Programada"
             };
 
             // 1. Crea esta clase temporal o permanente
-           
+
 
             _todasLasCitas.Add(nuevaCita);
             await GuardarCitasAsync(new CitasData { Citas = _todasLasCitas });
@@ -266,7 +289,7 @@ namespace HospitalLorenzo
                             col.Item().PaddingTop(6).Row(row =>
                             {
                                 row.ConstantItem(150).Text("Estado:").Bold();
-                                row.RelativeItem().Text(cita.Estado);
+                                row.RelativeItem().Text(cita.Estatus);
                             });
 
                             col.Item().PaddingTop(24)
