@@ -16,20 +16,11 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using System.Text.RegularExpressions;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
-
 namespace HospitalLorenzo
 {
-    /// <summary>
-    /// An empty window that can be used on its own or navigated to within a Frame.
-    /// </summary>
-
-    
     public sealed partial class DoctoresPage : Page
     {
-
-        private static readonly string DataPath = Rutas.Doctores;  
+        private static readonly string DataPath = Rutas.Doctores;
         private List<Doctor> _listaDoctoresMemoria = new();
         private List<string> _especialidades = new();
 
@@ -37,7 +28,6 @@ namespace HospitalLorenzo
         {
             this.InitializeComponent();
             CargarDirectorioMedico();
-
             _ = CargarEspecialidadesAsync();
         }
 
@@ -62,14 +52,9 @@ namespace HospitalLorenzo
         {
             try
             {
-                if (!File.Exists(Rutas.Especialidades))
-                    return;
-
+                if (!File.Exists(Rutas.Especialidades)) return;
                 string json = await File.ReadAllTextAsync(Rutas.Especialidades);
-
-                _especialidades = JsonSerializer.Deserialize<List<string>>(json)
-                                  ?? new List<string>();
-
+                _especialidades = JsonSerializer.Deserialize<List<string>>(json) ?? new List<string>();
                 cmbEspecialidad.ItemsSource = _especialidades;
             }
             catch (Exception ex)
@@ -77,6 +62,7 @@ namespace HospitalLorenzo
                 MostrarMensaje($"Error cargando especialidades: {ex.Message}");
             }
         }
+
         private async void CargarDirectorioMedico()
         {
             var data = await CargarDataAsync();
@@ -98,21 +84,15 @@ namespace HospitalLorenzo
         }
 
         public static bool ValidarCedulaProfesional(string Cedula)
-        {
-            return Regex.IsMatch(Cedula, @"^\d{8}$");
-        }
+            => Regex.IsMatch(Cedula, @"^\d{8}$");
 
         public static bool ValidarTelefono(string Telefono)
-        {
-            return Regex.IsMatch(Telefono, @"^\d{10}$");
-        }
+            => Regex.IsMatch(Telefono, @"^\d{10}$");
 
         private void txtCedula_TextChanged(object sender, TextChangedEventArgs e)
         {
             var texto = txtCedula.Text;
-
-            bool soloNumeros = string.IsNullOrWhiteSpace(texto) ||
-                               Regex.IsMatch(texto, @"^\d+$");
+            bool soloNumeros = string.IsNullOrWhiteSpace(texto) || Regex.IsMatch(texto, @"^\d+$");
 
             if (string.IsNullOrWhiteSpace(texto))
             {
@@ -138,9 +118,7 @@ namespace HospitalLorenzo
         private void txtTelefono_TextChanged(object sender, TextChangedEventArgs e)
         {
             var texto = txtTelefono.Text;
-
-            bool soloNumeros = string.IsNullOrWhiteSpace(texto) ||
-                               Regex.IsMatch(texto, @"^\d+$");
+            bool soloNumeros = string.IsNullOrWhiteSpace(texto) || Regex.IsMatch(texto, @"^\d+$");
 
             if (string.IsNullOrWhiteSpace(texto))
             {
@@ -166,11 +144,8 @@ namespace HospitalLorenzo
         private void txtNombre_TextChanged(object sender, TextChangedEventArgs e)
         {
             var texto = txtNombreDoc.Text;
-
             bool soloLetras = string.IsNullOrWhiteSpace(texto) ||
-                              Regex.IsMatch(
-                                  texto.Replace(" ", ""),
-                                  @"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]+$");
+                              Regex.IsMatch(texto.Replace(" ", ""), @"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]+$");
 
             if (string.IsNullOrWhiteSpace(texto))
             {
@@ -179,9 +154,7 @@ namespace HospitalLorenzo
             }
             else if (!soloLetras)
             {
-                ErrorNombreDoc.Text =
-                    "Solo se permiten letras, sin números ni símbolos.";
-
+                ErrorNombreDoc.Text = "Solo se permiten letras, sin números ni símbolos.";
                 ErrorNombreDoc.Visibility = Visibility.Visible;
             }
             else
@@ -215,10 +188,7 @@ namespace HospitalLorenzo
             }
 
             var data = await CargarDataAsync();
-
-            int nuevoId = data.Doctores.Count > 0
-                ? data.Doctores.Max(d => d.Id) + 1
-                : 1;
+            int nuevoId = data.Doctores.Count > 0 ? data.Doctores.Max(d => d.Id) + 1 : 1;
 
             var nuevoDoc = new Doctor
             {
@@ -228,26 +198,22 @@ namespace HospitalLorenzo
                 Cedula = cedula,
                 Telefono = telefono,
                 Turno = (cmbTurno.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "",
-                Activo = true
+                Activo = true,
+                Disponible = true
             };
 
             data.Doctores.Add(nuevoDoc);
-
             await GuardarDataAsync(data);
 
             MostrarMensaje("Doctor registrado correctamente.", false);
-
             BtnCancelarRegistro_Click(this, new RoutedEventArgs());
-
             CargarDirectorioMedico();
         }
-
 
         private async void TxtBusquedaDoctor_TextChanged(object sender, TextChangedEventArgs e)
         {
             string busqueda = txtBusquedaDoctor.Text.ToLower();
             var data = await CargarDataAsync();
-
             ListaDoctores.ItemsSource = data.Doctores
                 .Where(d => d.Id.ToString().Contains(busqueda))
                 .ToList();
@@ -259,14 +225,15 @@ namespace HospitalLorenzo
             {
                 PanelDetalleDoctor.Visibility = Visibility.Visible;
                 lblNombreDoctor.Text = $"ID: {d.Id} - Dr. {d.Nombre}";
-                lblDetalleDoctor.Text = $"Especialidad: {d.Especialidad}\n" +
-                                        $"Cédula: {d.Cedula}\n" +
-                                        $"Teléfono: {d.Telefono}\n" +
-                                        $"Turno: {d.Turno}\n" +
-                                        $"Estado: {(d.Activo ? "Activo" : "Inactivo")}";
+                lblDetalleDoctor.Text =
+                    $"Especialidad: {d.Especialidad}\n" +
+                    $"Cédula: {d.Cedula}\n" +
+                    $"Teléfono: {d.Telefono}\n" +
+                    $"Turno: {d.Turno}\n" +
+                    $"Estado: {(d.Activo ? "Activo" : "Inactivo")}\n" +
+                    $"Disponibilidad: {(d.Disponible ? "Disponible" : "No disponible")}";
             }
         }
-
 
         private void BtnCerrarDetalle_Click(object sender, RoutedEventArgs e)
         {
@@ -277,7 +244,6 @@ namespace HospitalLorenzo
         private void MostrarMensaje(string mensaje, bool isError = true)
         {
             txtEstado.Text = mensaje;
-
             txtEstado.Foreground = isError
                 ? new SolidColorBrush(Microsoft.UI.Colors.Red)
                 : new SolidColorBrush(Microsoft.UI.Colors.Green);

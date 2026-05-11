@@ -29,6 +29,9 @@
                     Background="#001e3b"
                     Foreground="White"
                     Click="BtnNuevaCita_Click"/>
+            <Button Content="- Liberar disponibilidad" Click="BtnLiberarDisponibilidad_Click"
+                    Background="#001e3b" Foreground="White"
+                    Padding="12,6" BorderThickness="0"/>
         </StackPanel>
 
         <ListView Grid.Row="2"
