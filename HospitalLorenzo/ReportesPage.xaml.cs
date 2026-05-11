@@ -138,7 +138,7 @@ namespace HospitalLorenzo
                                     table.Cell().Padding(5).Text(cita.PacienteNombre);
                                     table.Cell().Padding(5).Text(cita.DoctorNombre);
                                     table.Cell().Padding(5).Text($"{cita.Fecha} {cita.Hora}");
-                                    table.Cell().Padding(5).Text(cita.Estatus);
+                                    table.Cell().Padding(5).Text(cita.Estado);
                                 }
                             });
                         });

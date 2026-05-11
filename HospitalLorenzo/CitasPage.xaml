@@ -56,9 +56,17 @@
                         </TextBlock>
 
                         <TextBlock>
-                            <Run Text="Estatus: "/>
-                            <Run Text="{x:Bind Estatus}"/>
+                          <Run Text="Estatus: "/>
+                          <Run Text="{x:Bind Estado}"/>
                         </TextBlock>
+
+                        <ComboBox Tag="{x:Bind Id}"
+                            HorizontalAlignment="Left"
+                            SelectionChanged="CmbEstatus_SelectionChanged">
+                            <ComboBoxItem Content="Programada"/>
+                            <ComboBoxItem Content="Atendida"/>
+                            <ComboBoxItem Content="Cancelada"/>
+                        </ComboBox>
 
                         <Button Grid.Column="1"
                         Content="PDF"
@@ -67,9 +75,9 @@
                         Tag="{x:Bind Id}"
                         Click="BtnPdfCita_Click"
                         VerticalAlignment="Center"/>
-                    </Grid>
+                    </StackPanel>
                 </DataTemplate>
-            </ListView.ItemTemplate>
+           </ListView.ItemTemplate>
         </ListView>
         <StackPanel x:Name="PanelNuevaCita"
             Grid.Row="2"

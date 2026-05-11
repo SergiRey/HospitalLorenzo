@@ -77,6 +77,7 @@ namespace HospitalLorenzo
         public string Fecha { get; set; } = string.Empty;
         public string Hora { get; set; } = string.Empty;
         public string Motivo { get; set; } = string.Empty;
+        public string Estatus { get; set; } = "Programada";
         public string Estado { get; set; } = "Pendiente";
     }
     public class CitasData
