@@ -14,12 +14,86 @@
     </Window.SystemBackdrop>
 
     <Grid>
+        <Grid.Resources>
+            <!-- Estilo hover para botones del navbar -->
+            <Style x:Key="NavButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontSize" Value="25"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Margin" Value="16"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="RootBorder"
+                                    Background="Transparent"
+                                    CornerRadius="8"
+                                    Padding="12,6">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal"/>
+                                        <VisualState x:Name="PointerOver">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootBorder"
+                                                                               Storyboard.TargetProperty="Background">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="#334879AB"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootBorder"
+                                                                               Storyboard.TargetProperty="Background">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="#554879AB"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- Estilo hover para tarjetas de galería -->
+            <Style x:Key="GalleryCardStyle" TargetType="Border">
+                <Setter Property="Background" Value="#0a2e4a"/>
+                <Setter Property="CornerRadius" Value="10"/>
+            </Style>
+        </Grid.Resources>
+
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Background="#4879AB">
+        <!-- FILA 0: fecha, hora, título -->
+        <Grid Grid.Row="0" Background="#02306d">
+            <FontIcon Glyph="&#xE787;" Foreground="White" FontSize="20"
+                      HorizontalAlignment="Left" VerticalAlignment="Center" Margin="150,20,0,0"/>
+            <FontIcon Glyph="&#xE823;" Foreground="White" FontSize="20"
+                      HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,20,250,0"/>
+            <TextBlock Text="CLÍNICA LORENZO" Foreground="White" FontWeight="ExtraBold"
+                       FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"
+                       Margin="600,20,0,0"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left"
+                        Spacing="50" Margin="80,20,0,0">
+                <TextBlock x:Name="FechaText" FontSize="20" FontWeight="Bold"
+                           Foreground="White" HorizontalAlignment="Center" Margin="100,0,0,0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
+                        Spacing="0" Margin="0,20,50,0">
+                <TextBlock x:Name="HoraText" FontSize="20" FontWeight="Bold"
+                           Foreground="White" HorizontalAlignment="Center" Margin="0,0,135,0"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- FILA 1: navbar con botones -->
+        <Grid Grid.Row="1" Background="#02306d">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
@@ -27,118 +101,176 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="Doctores" Click="BtnDoctores_Click"
-                        Background="Transparent" 
-                        FontSize="25" 
-                        FontWeight="Bold"
-                        Foreground="#ffffff" 
-                        Margin="16" 
-                        BorderThickness="0"/>
-                
-                <Button Content="Pacientes" Click="BtnPacientes_Click"
-                        Background="Transparent" 
-                        FontSize="25" 
-                        FontWeight="Bold"
-                        Foreground="#ffffff" 
-                        Margin="16" 
-                        BorderThickness="0"/>
+                <Button Content="DOCTORES" Click="BtnDoctores_Click"
+                        Style="{StaticResource NavButtonStyle}"/>
+                <Button Content="PACIENTES" Click="BtnPacientes_Click"
+                        Style="{StaticResource NavButtonStyle}"/>
             </StackPanel>
 
-            <StackPanel Grid.Column="1" Margin="0,25,0,25">
-                <Image Source="/Assets/Logo_white.png" Width="500" Height="115"/>
+            <StackPanel Grid.Column="1" Margin="0,5,0,10">
+                <Button x:Name="BtnFullscreen" Click="BtnFullscreen_Click"
+                        Background="Transparent" BorderThickness="0" Style="{StaticResource NavButtonStyle}">
+                    <Image Source="/Assets/Logo_white.png" Width="550" Height="100"/>
+                </Button>
             </StackPanel>
 
             <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="Agenda" Click="BtnCitas_Click"
-                        Background="Transparent" 
-                        FontSize="25" 
-                        FontWeight="Bold"
-                        Foreground="#ffffff" 
-                        Margin="16" 
-                        BorderThickness="0"/>
-
-                <Button Content="Reportes" Click="BtnReportes_Click"
-                        Background="Transparent" 
-                        FontSize="25"
-                        FontWeight="Bold"
-                        Foreground="#ffffff" 
-                        Margin="16" 
-                        BorderThickness="0"/>
-                
-                <TextBlock x:Name="FechaText"
-                   FontSize="16" FontWeight="Bold"
-                   Foreground="White" HorizontalAlignment="Center"/>
-                
-                <TextBlock x:Name="HoraText"
-                   FontSize="20" FontWeight="Bold"
-                   Foreground="White" HorizontalAlignment="Center"/>
-
-                <Button Name="fileExitMenuItem" Click="fileExitMenuItem_Click"/>
-
-
-
+                <Button Content="AGENDA" Click="BtnCitas_Click"
+                        Style="{StaticResource NavButtonStyle}"/>
+                <Button Click="BtnReportes_Click"
+                        Background="Transparent" Margin="16" BorderThickness="0"
+                        Style="{StaticResource NavButtonStyle}">
+                    <FontIcon Glyph="&#xEA90;" Foreground="#ffffff" FontSize="50"/>
+                </Button>
             </StackPanel>
         </Grid>
 
-        <ScrollViewer Grid.Row="1"
+        <!-- FILA 2: scroll con frame y galería -->
+        <ScrollViewer Grid.Row="2"
                       VerticalScrollBarVisibility="Auto"
                       HorizontalScrollBarVisibility="Disabled">
             <StackPanel>
 
                 <Frame x:Name="ContentFrame" MinHeight="600"/>
-                
-                
 
-                <StackPanel Orientation="Horizontal" Spacing="12" Padding="16" Background="#001e3b">
+                <!-- GALERÍA 3 CIRUGÍAS -->
+                <!-- GALERÍA 3x2 CIRUGÍAS -->
+                <Grid Padding="20" Background="#02306d" RowSpacing="16" ColumnSpacing="16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-                    <Border Background="#0a2e4a" CornerRadius="10" Padding="10" Width="180">
-                        <StackPanel Spacing="8">
-                            <Image Source="/Assets/cirugia_liposuccion.png" Width="160" Height="100"/>
-                            <TextBlock Text="Liposucción" 
-                                           FontSize="13" 
-                                           FontWeight="Bold" 
-                                           Foreground="White"/>
-                            <TextBlock Text="Moldea tu cuerpo eliminando grasa localizada en abdomen, espalda, brazos o piernas. Ideal si ya estás cerca de tu peso pero quieres definir.
-                                       Costo: $40,000 – $120,000 MXN 
-                                       Anestesia: Local (zonas pequeñas) General (zonas grandes)
-                                       Datos útiles:
-                                       Recuperación: 2 a 4 semanas
-                                       Resultados visibles en 1-3 meses
-                                       Requiere faja postoperatoria" 
-                                           FontSize="11" 
-                                           Foreground="#89c4ff"     
-                                           TextWrapping="Wrap"/>
+                    <!-- FILA 1 -->
+
+                    <!-- Tarjeta 1 -->
+                    <Border Grid.Row="0" Grid.Column="0" CornerRadius="12" Background="#FFFFFF">
+                        <Border.Shadow>
+                            <ThemeShadow/>
+                        </Border.Shadow>
+                        <StackPanel>
+                            <Border CornerRadius="12,12,0,0" Height="220">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="/Assets/cirugia_liposuccion.png" Stretch="UniformToFill"/>
+                                </Border.Background>
+                            </Border>
+                            <StackPanel Padding="14" Spacing="8">
+                                <TextBlock Text="Liposucción"
+                           FontSize="18" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center"/>
+                                <TextBlock FontSize="15" Foreground="#0a2e4a" TextWrapping="Wrap"
+                           Text="Moldea tu cuerpo eliminando grasa localizada en abdomen, espalda, brazos o piernas.&#x0a;&#x0a;Costo: $40,000 – $120,000 MXN&#x0a;Anestesia: Local / General&#x0a;Recuperación: 2 a 4 semanas&#x0a;Resultados visibles en 1-3 meses&#x0a;Requiere faja postoperatoria"/>
+                            </StackPanel>
                         </StackPanel>
                     </Border>
 
-                    <Border Background="#0a2e4a" CornerRadius="10" Padding="10" Width="180">
-                        <StackPanel Spacing="8">
-                            <Image Source="/Assets/cruz.png" Width="160" Height="100" Stretch="UniformToFill"/>
-                            <TextBlock Text="Cirugía Estética" 
-                                           FontSize="13" 
-                                           FontWeight="Bold" 
-                                           Foreground="White"/>
-                            <TextBlock Text="Procedimientos de mejora estética con tecnología de punta." 
-                                           FontSize="11" 
-                                           Foreground="#89c4ff" 
-                                           TextWrapping="Wrap"/>
+                    <!-- Tarjeta 2 -->
+                    <Border Grid.Row="0" Grid.Column="1" CornerRadius="12" Background="#FFFFFF">
+                        <Border.Shadow>
+                            <ThemeShadow/>
+                        </Border.Shadow>
+                        <StackPanel>
+                            <Border CornerRadius="12,12,0,0" Height="220">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="/Assets/aumento_busto.jpg" Stretch="UniformToFill"/>
+                                </Border.Background>
+                            </Border>
+                            <StackPanel Padding="14" Spacing="8">
+                                <TextBlock Text="Aumento de Busto"
+                           FontSize="18" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center"/>
+                                <TextBlock FontSize="15" Foreground="#0a2e4a" TextWrapping="Wrap"
+                           Text="Procedimiento para aumentar el volumen y mejorar la forma del busto.&#x0a;&#x0a;Costo: $60,000 – $150,000 MXN&#x0a;Anestesia: General&#x0a;Recuperación: 3 a 6 semanas&#x0a;Resultados permanentes"/>
+                            </StackPanel>
                         </StackPanel>
                     </Border>
 
-                    <Border Background="#0a2e4a" CornerRadius="10" Padding="10" Width="180">
-                        <StackPanel Spacing="8">
-                            <Image Source="/Assets/cruz.png" Width="160" Height="100" Stretch="UniformToFill"/>
-                            <TextBlock Text="Cirugía Estética" 
-                                       FontSize="13" 
-                                       FontWeight="Bold" 
-                                       Foreground="White"/>
-                            <TextBlock Text="Procedimientos de mejora estética con tecnología de punta." 
-                                       FontSize="11" 
-                                       Foreground="#89c4ff" 
-                                       TextWrapping="Wrap"/>
+                    <!-- Tarjeta 3 -->
+                    <Border Grid.Row="0" Grid.Column="2" CornerRadius="12" Background="#FFFFFF">
+                        <Border.Shadow>
+                            <ThemeShadow/>
+                        </Border.Shadow>
+                        <StackPanel>
+                            <Border CornerRadius="12,12,0,0" Height="220">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="/Assets/cirugia_rinoplastia.jpg" Stretch="UniformToFill"/>
+                                </Border.Background>
+                            </Border>
+                            <StackPanel Padding="14" Spacing="8">
+                                <TextBlock Text="Rinoplastia"
+                           FontSize="18" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center"/>
+                                <TextBlock FontSize="15" Foreground="#0a2e4a" TextWrapping="Wrap"
+                           Text="Cirugía para remodelar la nariz mejorando estética y función respiratoria.&#x0a;&#x0a;Costo: $50,000 – $130,000 MXN&#x0a;Anestesia: General&#x0a;Recuperación: 2 a 3 semanas&#x0a;Resultados visibles al mes"/>
+                            </StackPanel>
                         </StackPanel>
                     </Border>
-                </StackPanel>
+
+                    <!-- FILA 2 -->
+
+                    <!-- Tarjeta 4 -->
+                    <Border Grid.Row="1" Grid.Column="0" CornerRadius="12" Background="#FFFFFF">
+                        <Border.Shadow>
+                            <ThemeShadow/>
+                        </Border.Shadow>
+                        <StackPanel>
+                            <Border CornerRadius="12,12,0,0" Height="220">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="/Assets/cirugia_abdominoplastia.jpg" Stretch="UniformToFill"/>
+                                </Border.Background>
+                            </Border>
+                            <StackPanel Padding="14" Spacing="8">
+                                <TextBlock Text="Abdominoplastia"
+                           FontSize="18" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center"/>
+                                <TextBlock FontSize="15" Foreground="#0a2e4a" TextWrapping="Wrap"
+                           Text="Elimina el exceso de piel y grasa del abdomen, tensando los músculos.&#x0a;&#x0a;Costo: $50,000 – $130,000 MXN&#x0a;Anestesia: General&#x0a;Recuperación: 4 a 6 semanas&#x0a;Resultados visibles al mes"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Tarjeta 5 -->
+                    <Border Grid.Row="1" Grid.Column="1" CornerRadius="12" Background="#FFFFFF">
+                        <Border.Shadow>
+                            <ThemeShadow/>
+                        </Border.Shadow>
+                        <StackPanel>
+                            <Border CornerRadius="12,12,0,0" Height="220">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="/Assets/cirugia_labios.PNG" Stretch="UniformToFill"/>
+                                </Border.Background>
+                            </Border>
+                            <StackPanel Padding="14" Spacing="8">
+                                <TextBlock Text="Bichectomía"
+                           FontSize="18" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center"/>
+                                <TextBlock FontSize="15" Foreground="#0a2e4a" TextWrapping="Wrap"
+                           Text="Extracción de las bolsas de Bichat para estilizar el rostro y marcar los pómulos.&#x0a;&#x0a;Costo: $20,000 – $50,000 MXN&#x0a;Anestesia: Local&#x0a;Recuperación: 1 a 2 semanas&#x0a;Resultados visibles al mes"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Tarjeta 6 -->
+                    <Border Grid.Row="1" Grid.Column="2" CornerRadius="12" Background="#FFFFFF">
+                        <Border.Shadow>
+                            <ThemeShadow/>
+                        </Border.Shadow>
+                        <StackPanel>
+                            <Border CornerRadius="12,12,0,0" Height="220">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="/Assets/cirugia_otoplastia.PNG" Stretch="UniformToFill"/>
+                                </Border.Background>
+                            </Border>
+                            <StackPanel Padding="14" Spacing="8">
+                                <TextBlock Text="Otoplastia"
+                           FontSize="18" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center"/>
+                                <TextBlock FontSize="15" Foreground="#0a2e4a" TextWrapping="Wrap"
+                           Text="Corrección de orejas prominentes o asimétricas para mejorar la armonía facial.&#x0a;&#x0a;Costo: $25,000 – $60,000 MXN&#x0a;Anestesia: Local / General&#x0a;Recuperación: 1 a 2 semanas&#x0a;Resultados inmediatos"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                </Grid>
             </StackPanel>
         </ScrollViewer>
     </Grid>

@@ -13,10 +13,23 @@ namespace HospitalLorenzo
             AppWindow.SetPresenter(AppWindowPresenterKind.FullScreen);
             IniciarReloj();
         }
-        private void fileExitMenuItem_Click(object sender, RoutedEventArgs e)
+
+        private bool _esFullscreen = true;
+
+        private void BtnFullscreen_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            if (_esFullscreen)
+            {
+                AppWindow.SetPresenter(AppWindowPresenterKind.Overlapped);
+                _esFullscreen = false;
+            }
+            else
+            {
+                AppWindow.SetPresenter(AppWindowPresenterKind.FullScreen);
+                _esFullscreen = true;
+            }
         }
+
         private void IniciarReloj()
         {
             ActualizarFechaHora();
