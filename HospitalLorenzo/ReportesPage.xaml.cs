@@ -111,8 +111,8 @@ namespace HospitalLorenzo
                             col.Item().PaddingTop(10).Row(row =>
                             {
                                 row.RelativeItem().Text($"Total citas: {citas.Count}").Bold();
-                                row.RelativeItem().Text($"Pacientes esta semana: {citas.Select(c => c.PacienteId).Distinct().Count()}").Bold();
-                                row.RelativeItem().Text($"Doctores esta semana: {citas.Select(c => c.DoctorId).Distinct().Count()}").Bold();
+                                row.RelativeItem().Text($"Pacientes: {citas.Select(c => c.PacienteId).Distinct().Count()}").Bold();
+                                row.RelativeItem().Text($"Doctores: {citas.Select(c => c.DoctorId).Distinct().Count()}").Bold();
                             });
 
                             col.Item().PaddingTop(20).Table(table =>

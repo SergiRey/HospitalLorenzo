@@ -126,8 +126,11 @@ namespace HospitalLorenzo
                         ? dpFechaCita.Date.Value.ToString("yyyy-MM-dd")
                         : DateTime.Today.ToString("yyyy-MM-dd"),
                 Hora = tpHora.Time.Hours.ToString("00") + ":" + tpHora.Time.Minutes.ToString("00"),
-                Estatus = "Programada"
+                Estado = "Programada"
             };
+
+            // 1. Crea esta clase temporal o permanente
+           
 
             _todasLasCitas.Add(nuevaCita);
             await GuardarCitasAsync(new CitasData { Citas = _todasLasCitas });
@@ -239,8 +242,8 @@ namespace HospitalLorenzo
 
                             col.Item().PaddingTop(6).Row(row =>
                             {
-                                row.ConstantItem(150).Text("Estatus:").Bold();
-                                row.RelativeItem().Text(cita.Estatus);
+                                row.ConstantItem(150).Text("Estado:").Bold();
+                                row.RelativeItem().Text(cita.Estado);
                             });
                         });
                     });
