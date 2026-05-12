@@ -88,7 +88,7 @@
                                 <TextBox x:Name="txtDireccion" Header="Dirección"
                                          Grid.Row="2" Grid.ColumnSpan="2"
                                          MaxLength="65"
-                                         PlaceholderText="Calle / Número Exterior / Código Postal"
+                                         PlaceholderText="Calle / Número Exterior"
                                          TextChanged="txtDireccion_TextChanged"/>
                                 <TextBlock x:Name="ErrorDireccion" Grid.Row="3" Grid.ColumnSpan="2"
                                            FontSize="11" Foreground="Red"

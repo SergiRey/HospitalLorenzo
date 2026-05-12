@@ -2,7 +2,7 @@
   "Doctores": [
     {
       "Id": 1,
-      "Nombre": "eepppee",
+      "Nombre": "Maria Julia",
       "Especialidad": "Dermatolog\u00EDa",
       "Cedula": "eaad5a1dad",
       "Telefono": "211da51d5a",
@@ -27,7 +27,7 @@
       "Cedula": "65432456",
       "Telefono": "1234565432",
       "Turno": "Vespertino",
-      "Disponible": true,
+      "Disponible": false,
       "Activo": true
     },
     {
@@ -37,7 +37,7 @@
       "Cedula": "12345566",
       "Telefono": "8765434567",
       "Turno": "Vespertino",
-      "Disponible": true,
+      "Disponible": false,
       "Activo": true
     },
     {
@@ -76,6 +76,16 @@
       "Especialidad": "Cirug\u00EDa Est\u00E9tica",
       "Cedula": "76543234",
       "Telefono": "1234567890",
+      "Turno": "Matutino",
+      "Disponible": false,
+      "Activo": true
+    },
+    {
+      "Id": 9,
+      "Nombre": "Maria Paula Gonzalez Camarena",
+      "Especialidad": "Medicina Est\u00E9tica",
+      "Cedula": "87654323",
+      "Telefono": "8245678976",
       "Turno": "Matutino",
       "Disponible": true,
       "Activo": true

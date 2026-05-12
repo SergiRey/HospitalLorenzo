@@ -44,7 +44,7 @@
 
         <Grid Grid.Column="1" Background="#ffffff">
             <FontIcon Glyph="&#xEA8C;" FontSize="75" Foreground="#4879AB" VerticalAlignment="Top" Margin="0, 110, 0, 0"/>
-            <Button Name="fileExitMenuItem" Click="fileExitMenuItem_Click" Background="#ef8278" HorizontalAlignment="Center" Margin="0,360,0,0">
+            <Button Name="fileExitMenuItem" Click="fileExitMenuItem_Click" Background="#ef8278" HorizontalAlignment="Center" Margin="0,435,0,0">
                 <FontIcon Glyph="&#xF78A;" Foreground="#a61d10" FontSize="15"/>
             </Button>
             <StackPanel VerticalAlignment="Center"
