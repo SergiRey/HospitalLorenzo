@@ -12,7 +12,7 @@
       "Alergias": "",
       "Enfermedades": "",
       "FechaRegistro": "11/05/2026 17:55",
-      "Activo": false
+      "Activo": true
     },
     {
       "Id": 2,
@@ -68,7 +68,7 @@
       "Alergias": "",
       "Enfermedades": "",
       "FechaRegistro": "11/05/2026 18:06",
-      "Activo": false
+      "Activo": true
     },
     {
       "Id": 6,
@@ -96,7 +96,35 @@
       "Alergias": "",
       "Enfermedades": "",
       "FechaRegistro": "11/05/2026 18:11",
-      "Activo": false
+      "Activo": true
+    },
+    {
+      "Id": 8,
+      "Nombre": "Mary Jane Watson",
+      "FechaNacimiento": "08/08/1964",
+      "Sexo": "Femenino",
+      "Telefono": "\u002B523579510284",
+      "Correo": "janelov@hotmail.com",
+      "Direccion": "New York #15",
+      "TipoSangre": "A\u002B",
+      "Alergias": "",
+      "Enfermedades": "",
+      "FechaRegistro": "12/05/2026 14:20",
+      "Activo": true
+    },
+    {
+      "Id": 9,
+      "Nombre": "Sol Luna",
+      "FechaNacimiento": "13/10/1959",
+      "Sexo": "Otro",
+      "Telefono": "\u002B528523699510",
+      "Correo": "galacticstar@hotmail.com",
+      "Direccion": "L\u00E1ctea #200 ",
+      "TipoSangre": "AB\u002B",
+      "Alergias": "",
+      "Enfermedades": "",
+      "FechaRegistro": "12/05/2026 14:26",
+      "Activo": true
     }
   ]
 }

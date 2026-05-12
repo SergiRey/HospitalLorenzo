@@ -122,17 +122,32 @@
                                            Visibility="Collapsed" Margin="0,2,0,6"/>
                             </Grid>
 
-                            <Grid ColumnSpacing="12">
+                            <Grid ColumnSpacing="12" RowSpacing="2">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- Fecha -->
                                 <CalendarDatePicker x:Name="datePickerNac"
-                                                    Header="Fecha de nacimiento"
-                                                    PlaceholderText="dd/mm/aaaa"/>
-                                <ComboBox x:Name="comboSexo" Header="Género"
-                                          HorizontalAlignment="Stretch" Grid.Column="1"
-                                          SelectionChanged="comboSexo_SelectionChanged">
+                        Grid.Row="0" Grid.Column="0"
+                        DateChanged="datePickerNac_DateChanged"
+                        Header="Fecha de nacimiento"
+                        PlaceholderText="dd/mm/aaaa"/>
+
+                                <TextBlock x:Name="ErrorFecha"
+                                           Grid.Row="1" Grid.Column="0" Foreground="Red" FontSize="11" Visibility="Collapsed" Margin="0,2,0,6"/>
+
+                                    <ComboBox x:Name="comboSexo"
+                                        Grid.Row="0" Grid.Column="1"
+                                        Header="Género"
+                                        HorizontalAlignment="Stretch"
+                                        SelectionChanged="comboSexo_SelectionChanged">
                                     <ComboBoxItem Content="Masculino"/>
                                     <ComboBoxItem Content="Femenino"/>
                                     <ComboBoxItem Content="Otro"/>

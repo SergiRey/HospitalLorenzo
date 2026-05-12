@@ -197,7 +197,6 @@ namespace HospitalLorenzo
                 Especialidad = cmbEspecialidad.SelectedItem?.ToString() ?? "General",
                 Cedula = cedula,
                 Telefono = telefono,
-                Turno = (cmbTurno.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "",
                 Activo = true,
                 Disponible = true
             };
@@ -229,7 +228,6 @@ namespace HospitalLorenzo
                     $"Especialidad: {d.Especialidad}\n" +
                     $"Cédula: {d.Cedula}\n" +
                     $"Teléfono: {d.Telefono}\n" +
-                    $"Turno: {d.Turno}\n" +
                     $"Estado: {(d.Activo ? "Activo" : "Inactivo")}\n" +
                     $"Disponibilidad: {(d.Disponible ? "Disponible" : "No disponible")}";
             }
@@ -256,7 +254,6 @@ namespace HospitalLorenzo
             txtTelefono.Text = "";
 
             cmbEspecialidad.SelectedIndex = -1;
-            cmbTurno.SelectedIndex = -1;
 
             EstadoCedula.Text = "";
             EstadoTelefono.Text = "";

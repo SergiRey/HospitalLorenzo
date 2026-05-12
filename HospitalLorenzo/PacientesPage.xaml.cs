@@ -180,6 +180,34 @@ namespace HospitalLorenzo
             }
         }
 
+        private void datePickerNac_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs e)
+        {
+            if (!datePickerNac.Date.HasValue)
+            {
+                ErrorFecha.Text = "La fecha de nacimiento es obligatoria.";
+                ErrorFecha.Visibility = Visibility.Visible;
+                return;
+            }
+
+            DateTime fechaNac = datePickerNac.Date.Value.Date;
+            DateTime hoy = DateTime.Today;
+
+            int edad = hoy.Year - fechaNac.Year;
+
+            if (fechaNac > hoy.AddYears(-edad))
+                edad--;
+
+            if (edad < 18 || edad > 80)
+            {
+                ErrorFecha.Text = "El paciente debe tener entre 18 y 80 años.";
+                ErrorFecha.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ErrorFecha.Visibility = Visibility.Collapsed;
+            }
+        }
+
         private bool FormularioValido()
         {
             return ErrorNombre.Visibility == Visibility.Collapsed &&
@@ -188,7 +216,8 @@ namespace HospitalLorenzo
                    ErrorTelefono.Visibility == Visibility.Collapsed &&
                    ErrorCorreo.Visibility == Visibility.Collapsed &&
                    ErrorSexo.Visibility == Visibility.Collapsed &&
-                   ErrorSangre.Visibility == Visibility.Collapsed;
+                   ErrorSangre.Visibility == Visibility.Collapsed &&
+                   ErrorFecha.Visibility == Visibility.Collapsed;
         }
 
         private async void BtnGuardar_Click(object sender, RoutedEventArgs e)
@@ -198,6 +227,7 @@ namespace HospitalLorenzo
             txtDireccion_TextChanged(null, null);
             txtTelefono_TextChanged(null, null);
             txtCorreo_TextChanged(null, null);
+            datePickerNac_DateChanged(null, null);
 
             if (!FormularioValido())
             {
