@@ -12,7 +12,7 @@
       "Alergias": "",
       "Enfermedades": "",
       "FechaRegistro": "11/05/2026 17:55",
-      "Activo": true
+      "Activo": false
     },
     {
       "Id": 2,
@@ -68,7 +68,7 @@
       "Alergias": "",
       "Enfermedades": "",
       "FechaRegistro": "11/05/2026 18:06",
-      "Activo": true
+      "Activo": false
     },
     {
       "Id": 6,
@@ -96,7 +96,7 @@
       "Alergias": "",
       "Enfermedades": "",
       "FechaRegistro": "11/05/2026 18:11",
-      "Activo": true
+      "Activo": false
     },
     {
       "Id": 8,

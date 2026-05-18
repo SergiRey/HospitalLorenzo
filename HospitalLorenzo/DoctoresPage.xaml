@@ -27,7 +27,7 @@
                 </RelativePanel>
 
                 <TextBox x:Name="txtBusquedaDoctor" PlaceholderText="Buscar por ID..." 
-              TextChanged="TxtBusquedaDoctor_TextChanged" Margin="0,0,0,15"/>
+              TextChanged="TxtBusquedaDoctor_TextChanged" Margin="0,0,0,15" MaxLength="3"/>
 
                 <ListView x:Name="ListaDoctores" SelectionChanged="ListaDoctores_SelectionChanged" Margin="0,10">
                     <ListView.ItemTemplate>
@@ -60,14 +60,14 @@
 
         <StackPanel x:Name="SeccionRegistroDoctor" Visibility="Collapsed" MaxWidth="500" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Text="Registrar Nuevo Médico" FontSize="20" FontWeight="Bold" Margin="0,0,0,20"/>
-            <TextBox x:Name="txtNombreDoc" Header="Nombre Completo" Margin="0,5" MaxLength="100" PlaceholderText="Nombre Completo. Máx. 100 caracteres" TextChanged="txtNombre_TextChanged"/>
+            <TextBox x:Name="txtNombreDoc" Header="Nombre Completo" Margin="0,5" MaxLength="80" PlaceholderText="Nombre Completo. Máx. 80 caracteres" TextChanged="txtNombre_TextChanged"/>
             <TextBlock x:Name="ErrorNombreDoc" Grid.Row="1" Grid.Column="0" 
                        FontSize="11" Foreground="Red"  Visibility="Collapsed" Margin="0,2,0,6"/>
-            <ComboBox x:Name="cmbEspecialidad" Header="Especialidad" HorizontalAlignment="Stretch" Margin="0,5"/>
-            <TextBox x:Name="txtCedula" Header="Cédula Profesional" Margin="0,5" TextChanged="txtCedula_TextChanged" MaxLength="8"/>
+            <ComboBox x:Name="cmbEspecialidad" Header="Especialidad" HorizontalAlignment="Stretch" Margin="0,5" PlaceholderText="Seleccione"/>
+            <TextBox x:Name="txtCedula" Header="Cédula Profesional" Margin="0,5" TextChanged="txtCedula_TextChanged" MaxLength="8" PlaceholderText="8 dígitos"/>
             <TextBlock x:Name="EstadoCedula" Grid.Row="1" Grid.Column="0" 
                        FontSize="11" Foreground="Red"  Visibility="Collapsed" Margin="0,2,0,6"/> 
-            <TextBox x:Name="txtTelefono" Header="Teléfono" TextChanged="txtTelefono_TextChanged" MaxLength="10" />
+            <TextBox x:Name="txtTelefono" Header="Teléfono" TextChanged="txtTelefono_TextChanged" MaxLength="10" PlaceholderText="10 dígitos"/>
             <TextBlock x:Name="EstadoTelefono" Grid.Row="1" Grid.Column="0" 
                        FontSize="11" Foreground="Red"  Visibility="Collapsed" Margin="0,2,0,6"/>
 

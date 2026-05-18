@@ -128,6 +128,8 @@ namespace HospitalLorenzo
         private void txtCorreo_TextChanged(object sender, TextChangedEventArgs e)
         {
             var texto = txtCorreo.Text.ToLower();
+
+
             string[] dominiosValidos = { "@gmail.com", "@yahoo.com", "@icloud.com", "@hotmail.com", "@outlook.com" };
 
             bool tieneCaracterAntes = texto.Contains("@") && texto.IndexOf("@") > 0;

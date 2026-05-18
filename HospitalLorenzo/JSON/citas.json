@@ -1,0 +1,40 @@
+{
+  "Citas": [
+    {
+      "Id": 1,
+      "PacienteId": 1,
+      "DoctorId": 2,
+      "PacienteNombre": "Lizbeth Renata Gonz\u00E1les Orozco",
+      "DoctorNombre": "Sonia Maribel Esquivel Segundo",
+      "Fecha": "2026-05-15",
+      "Hora": "11:11",
+      "Motivo": "Seguimiento de cirug\u00EDa",
+      "Estatus": "Programada",
+      "Estado": "Programada"
+    },
+    {
+      "Id": 2,
+      "PacienteId": 7,
+      "DoctorId": 5,
+      "PacienteNombre": "Ryan Thomas Gosling",
+      "DoctorNombre": "Carlos Portales Marrufo",
+      "Fecha": "2026-05-13",
+      "Hora": "09:00",
+      "Motivo": "Cirug\u00EDa",
+      "Estatus": "Programada",
+      "Estado": "Programada"
+    },
+    {
+      "Id": 3,
+      "PacienteId": 5,
+      "DoctorId": 3,
+      "PacienteNombre": "Grace Ashfort",
+      "DoctorNombre": "Victoria Abigail Balderas Guevara",
+      "Fecha": "2026-05-14",
+      "Hora": "11:11",
+      "Motivo": "Cirug\u00EDa",
+      "Estatus": "Programada",
+      "Estado": "Programada"
+    }
+  ]
+}
